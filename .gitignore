@@ -1,0 +1,4 @@
+/node_modules
+firebase.js
+yarn.lock
+*.log
