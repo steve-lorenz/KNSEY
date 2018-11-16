@@ -1,4 +1,10 @@
 /node_modules
-firebase.js
+/src/config
 yarn.lock
 *.log
+/build
+/functions
+/.firebase
+.firebaserc
+firebase.json
+.env
