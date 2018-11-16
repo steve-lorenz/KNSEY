@@ -1,4 +1,5 @@
 /node_modules
+/src/config
 firebase.js
 yarn.lock
 *.log
