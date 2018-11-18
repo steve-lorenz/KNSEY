@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import Rating from 'react-star-rating-lite'
 import { createRanking } from '../../store/actions/rankActions'
 import { createCity } from '../../store/actions/cityActions'
+import { bindActionCreators } from 'redux'
 
 class CreateRanking extends Component {
 
@@ -12,7 +13,9 @@ class CreateRanking extends Component {
 
 		this.state = {
 			starRating: '',
-			cityName: ''
+			cityName: '',
+			state: '',
+			country: ''
 		}
 		this.onClickHandler = this.onClickHandler.bind(this);
 		this.goBack = this.goBack.bind(this);
@@ -33,14 +36,10 @@ class CreateRanking extends Component {
 			}
 		})
 		.then(data => {
-				console.log(data)
-				this.props.createCity({
+				this.setState({
 					cityName: data.city,
 					state: data.region,
 					country: data.country
-				})
-				this.setState({
-					cityName: data.city
 				})
 		})
 		.catch(error => {
@@ -63,6 +62,11 @@ class CreateRanking extends Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		console.log(this.state)
+		this.props.createCity({
+			cityName: this.state.cityName,
+			state: this.state.state,
+			country: this.state.country
+		})
 		this.props.createRanking(this.state)
 		this.goBack()
    }
@@ -98,8 +102,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		createRanking: (ranking) => dispatch(createRanking(ranking)),
-		createCity: (city) => dispatch(createCity(city))
+		...bindActionCreators({ createCity, createRanking }, dispatch)
 	}
 }
 
