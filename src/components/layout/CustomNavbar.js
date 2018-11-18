@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import { connect } from 'react-redux'
+import { Navbar } from 'react-materialize'
 
-const Navbar = (props) => {
+const CustomNavbar = (props) => {
    const { auth, profile } = props;
    const links = auth.uid ? <SignedInLinks profile={profile} /> :  <SignedOutLinks />;
 
    return (
-      <nav className="nav-wrapper deep-purple darken-4">
-         <div className="container">
-            <Link to='/' className="brand-logo center">KNSEY</Link>
-            { links }
-         </div>
-      </nav>
+      <Navbar className="nav-wrapper deep-purple darken-4">
+         <Link to='/' className="brand-logo center">KNSEY</Link>
+         { links }
+      </Navbar>
    )
 
 }
@@ -27,4 +26,4 @@ const mapStateToProps = (state) => {
    }
 }
 
-export default connect(mapStateToProps)(Navbar)
+export default connect(mapStateToProps)(CustomNavbar)

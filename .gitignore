@@ -1,8 +1,9 @@
 /node_modules
 /src/config
-<<<<<<< HEAD
-firebase.js
-=======
->>>>>>> signup
 yarn.lock
 *.log
+/build
+/functions
+/.firebase
+.firebaserc
+firebase.json

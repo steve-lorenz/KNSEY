@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Navbar from './components/layout/Navbar'
+import CustomNavbar from './components/layout/CustomNavbar'
 import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import Map from './components/map/Map'
@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Navbar />
+          <CustomNavbar />
           <Switch>
             <Route exact path='/' component={Map} />
             <Route path='/signup' component={SignUp} />

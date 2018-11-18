@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Rating from 'react-star-rating-lite'
 import { createRanking } from '../../store/actions/rankActions'
+import { createCity } from '../../store/actions/cityActions'
 
 class CreateRanking extends Component {
 
@@ -10,8 +11,8 @@ class CreateRanking extends Component {
 		super(props);
 
 		this.state = {
-			city: '',
 			starRating: '',
+			cityName: ''
 		}
 		this.onClickHandler = this.onClickHandler.bind(this);
 		this.goBack = this.goBack.bind(this);
@@ -32,8 +33,14 @@ class CreateRanking extends Component {
 			}
 		})
 		.then(data => {
+				console.log(data)
+				this.props.createCity({
+					cityName: data.city,
+					state: data.region,
+					country: data.country
+				})
 				this.setState({
-					city: data.city
+					cityName: data.city
 				})
 		})
 		.catch(error => {
@@ -67,10 +74,12 @@ class CreateRanking extends Component {
 
       return (
          <div className="container center">
-            <button className="right btn black round" onClick={ this.goBack }>X</button>
+				<div className="row">
+					<button style={{marginTop: '20px'}}className="right btn black round" onClick={ this.goBack }>X</button>
+				</div>
             <h1>Ranking</h1>
             <h3>{this.state.city}</h3>
-            <h5 style={{ marginBottom: '10px' }}>How gay friendly is this city</h5>
+            <h5 style={{ marginBottom: '10px' }}>How gay friendly is <strong>{this.state.cityName}</strong>?</h5>
             <Rating onClick={ this.onClickHandler } color ="purple"/>
             <p> 1. Haters - 5. Very Friendly</p>
             <button className="btn" onClick={ this.handleSubmit }>Submit</button>
@@ -89,7 +98,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		createRanking: (ranking) => dispatch(createRanking(ranking))
+		createRanking: (ranking) => dispatch(createRanking(ranking)),
+		createCity: (city) => dispatch(createCity(city))
 	}
 }
 
