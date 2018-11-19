@@ -5,6 +5,8 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import Map from './components/map/Map'
 import CreateRanking from './components/rank/CreateRanking'
+import ShowRanking from './components/rank/ShowRanking'
+require('dotenv').config()
 
 class App extends Component {
   render() {
@@ -17,6 +19,7 @@ class App extends Component {
             <Route path='/signup' component={SignUp} />
             <Route path='/signin' component={SignIn} />
             <Route path='/create' component={CreateRanking} />
+            <Route path='/:id' component={ShowRanking} />
           </Switch>
         </div>
       </BrowserRouter>
