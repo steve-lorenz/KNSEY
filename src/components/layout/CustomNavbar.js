@@ -23,7 +23,12 @@ const mapStateToProps = (state) => {
    return {
       auth: state.firebase.auth,
       profile: state.firebase.profile,
+<<<<<<< HEAD
       city: state.city
+=======
+      city: state.city,
+      ranking: state.ranking
+>>>>>>> map view
    }
 }
 

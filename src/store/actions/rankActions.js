@@ -39,3 +39,44 @@ export const createRanking = (ranking) => {
        });
    }
 };
+
+export const getRanking = (cityId) => {
+   return (dispatch, getState, { getFirebase, getFirestore }) => {
+
+      console.log(cityId)
+      if(cityId) {
+         const firestore = getFirestore();
+         const rankingsRef = firestore.collection('rankings');
+
+         rankingsRef.where('cityId', '==', cityId).get()
+         .then(snapshot => {
+
+            if(!snapshot.empty){
+               const numberOfRankings = snapshot.size;
+               let rankings = []; 
+               snapshot.forEach(doc => {
+                  rankings.push(doc.data().starRating)
+               });
+      
+               const sum = rankings.reduce((total, amount) => total + amount);
+               const rankingAverage = parseFloat( (sum / numberOfRankings).toFixed(2) );
+               const ranking = {
+                  average: rankingAverage,
+                  userRanking: numberOfRankings
+               }
+         
+               dispatch({ type: 'GET_RANKING_SUCCESS', ranking });
+            }
+
+         })
+         .catch(err => {
+            console.log('Error getting rankings', err);
+            dispatch({ type: 'GET_RANKING_ERROR', err });
+         });
+      }
+      else {
+         console.log("Ranking not found")
+         dispatch({ type: 'RANKING_NOT_FOUND' })
+      }
+   }
+};

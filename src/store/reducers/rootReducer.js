@@ -8,9 +8,9 @@ import { firebaseReducer } from 'react-redux-firebase'
 const rootReducer = combineReducers({
    city: cityReducer,
    auth: authReducer,
-   rank: rankReducer,
+   ranking: rankReducer,
    firestore: firestoreReducer,
-   firebase: firebaseReducer
+   firebase: firebaseReducer,
 })
 
 export default rootReducer;
