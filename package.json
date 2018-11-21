@@ -8,11 +8,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-map-gl": "^4.0.2",
-<<<<<<< HEAD
-    "react-mapbox-autocomplete": "^0.2.3",
-=======
     "react-map-gl-geocoder": "^1.4.5",
->>>>>>> map view
     "react-materialize": "^2.4.8",
     "react-redux": "^5.1.1",
     "react-redux-firebase": "^2.2.1",

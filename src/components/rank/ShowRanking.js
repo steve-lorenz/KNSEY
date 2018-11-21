@@ -1,12 +1,4 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
-
-class ShowRanking extends Component {
-  render() {
-    return (
-      <div className='container center'>
-        Show Ranking
-=======
 import { connect } from 'react-redux'
 import StarRatings from 'react-star-ratings'
 
@@ -27,15 +19,11 @@ class ShowRanking extends Component {
         />
         
         <h4>Total Ratings: {ranking.userRanking}</h4>
->>>>>>> map view
       </div>
     )
   }
 }
 
-<<<<<<< HEAD
-export default ShowRanking
-=======
 const mapStateToProps = (state) => {
   console.log("Show Ranking State", state);
   return {
@@ -53,4 +41,3 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowRanking)
->>>>>>> map view

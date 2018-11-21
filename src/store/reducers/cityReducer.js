@@ -21,22 +21,10 @@ const cityReducer = (state=initState, action) => {
       case 'GET_CITY_ERROR':
          console.log('Get city error', action.err);
          return state;
-<<<<<<< HEAD
-
-      case 'CITY_NOT_FOUND':
-         console.log('City not found', action);
-         return {
-            ...state,
-            cityId: '',
-            cityName: '',
-            country: '',
-            state: ''
-=======
       case 'CITY_NOT_FOUND':
          console.log('City not found', action);
          return {
             ...city
->>>>>>> map view
          }
       default:
          return state;
