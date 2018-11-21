@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import { getCity } from '../../store/actions/cityActions'
 import { getRanking } from '../../store/actions/rankActions'
-import Geocoder from 'react-map-gl-geocoder'
+import Geocoder from 'react-mapbox-gl-geocoder'
 import { bindActionCreators } from 'redux'
 
 class Map extends Component {
@@ -30,8 +30,6 @@ class Map extends Component {
 
     }
 
-    mapRef = React.createRef();
-
     componentDidMount() {
       window.addEventListener('resize', this.resize)
       this.resize()
@@ -53,21 +51,20 @@ class Map extends Component {
         viewport: { ...this.state.viewport, ...viewport }
       });
     };
-  
 
-    handleGeocoderViewportChange = viewport => {
-      const geocoderDefaultOverrides = { transitionDuration: 1000 };
-  
-      return this.handleViewportChange({
-        ...viewport,
-        ...geocoderDefaultOverrides
-      });
-    };
+    renderPopUp = () => {
+      const { city } = this.props
 
-    handleSearhResult = result => {
-       const center = result.result.center
-       const cityName = result.result.place_name.split(',')[0]
-       const { city } = this.props
+      this.setState({
+         popupInfo: this.props.city, 
+         showPopup: true
+      })
+      this.props.getRanking(city.cityId)
+    }
+
+    handleSearhResult = (viewport, result) => {
+       const center = result.center
+       const cityName = result.text
        this.setState({
          marker: { 
             latitude: center[1], 
@@ -75,7 +72,10 @@ class Map extends Component {
          }
        })
        this.props.getCity(cityName)
-       this.props.getRanking(city.cityId)
+
+      return this.handleViewportChange({
+         ...viewport
+      });
     }
 
     renderCityMarker = () => {
@@ -85,7 +85,7 @@ class Map extends Component {
           key={`1234`}
           longitude={marker.longitude}
           latitude={marker.latitude} >
-          <i onClick={() => this.setState({popupInfo: this.props.city, showPopup: true})} className="far fa-star fa-8x"></i>
+          <i onClick={() => this.renderPopUp()} className="far fa-star fa-8x"></i>
         </Marker>
       );
     }
@@ -98,7 +98,6 @@ class Map extends Component {
       return (
          <div className="map">
             <MapGL
-                ref={this.mapRef}
                {...viewport}
                onViewportChange={this.handleViewportChange}
                mapStyle="mapbox://styles/mapbox/dark-v9"
@@ -119,20 +118,19 @@ class Map extends Component {
                <p>User Average: {this.props.ranking.average}</p>
                <p>Total User Rankings: {this.props.ranking.userRanking}</p>
             </Popup>
-
             : 
             null
             }
 
             <div style={{height: '100%'}}className="container center">
-            <p>{ranking ? ranking.totalRankings : 'HELLO!!'}</p>
+            <p>{ranking ? ranking.totalRankings : null}</p>
                <Link to="/create"><button className="btn deep-purple darken-4 center">Rank your city</button></Link>
                <Geocoder
-                  mapRef={this.mapRef}
-                  onViewportChange={this.handleGeocoderViewportChange}
+                  viewport={viewport}
                   mapboxApiAccessToken={process.env.REACT_APP_Secret}
-                  onResult={this.handleSearhResult}
-                  types='place'
+                  onSelected={this.handleSearhResult}
+                  hideOnSelect={true}
+                  className='search-box'
                />
             </div>
             </MapGL>

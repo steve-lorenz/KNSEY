@@ -4,6 +4,13 @@ import StarRatings from 'react-star-ratings'
 
 class ShowRanking extends Component {
 
+  componentWillUnmount () {
+    const { city } = this.props;
+    this.setState({
+      ...city,
+    })
+  }
+
   render() {
     const {city, ranking} = this.props
     return (
@@ -38,6 +45,5 @@ const mapDispatchToProps = (dispatch) => {
      
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowRanking)
