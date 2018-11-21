@@ -1,5 +1,5 @@
 export const createCity = (city) => {
-   return (dispatch, getState, { getFirebase, getFirestore }) => {
+   return (dispatch, getState, { getFirestore }) => {
 
       const firestore = getFirestore();
       const citiesRef = firestore.collection('cities');
@@ -25,7 +25,7 @@ export const createCity = (city) => {
 };
 
 export const getCity = (cityName) => {
-   return (dispatch, getState, { getFirebase, getFirestore }) => {
+   return (dispatch, getState, { getFirestore }) => {
 
       const firestore = getFirestore();
       const citiesRef = firestore.collection('cities');

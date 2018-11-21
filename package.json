@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@mapbox/react-geocoder": "^2.5.0",
+    "axios": "^0.18.0",
     "dotenv": "^6.1.0",
     "firebase": "^5.5.8",
     "react": "^16.6.3",
