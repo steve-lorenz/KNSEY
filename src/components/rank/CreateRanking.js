@@ -37,7 +37,10 @@ class CreateRanking extends Component {
 
 	geoSuccess = pos => {
       const coords = pos.coords;
-      this.getReverseGeoCode(coords);
+		this.getReverseGeoCode(coords);
+		this.setState({ 
+			userLocation: true
+		})
     }
     
 	geoError = err => {
@@ -56,8 +59,7 @@ class CreateRanking extends Component {
 			this.setState({
 				cityName: city[0].trim(),
 				state: city[1].trim(),
-				country: city[2].trim(),
-				userLocation: true
+				country: city[2].trim()
 			})
 			this.props.createCity({
 				cityName: city[0].trim(),
@@ -128,7 +130,7 @@ class CreateRanking extends Component {
 			}
 		</div>	
       )
-}
+	}
 
 }
 

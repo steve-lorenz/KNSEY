@@ -68,29 +68,6 @@ class Map extends Component {
       });
     }
 
-   //  handleCityRank = () => {
-   //    const options = {
-   //       enableHighAccuracy: true,
-   //       timeout: 5000,
-   //       maximumAge: 0
-   //     };
-       
-   //     navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError, options);
-   //  }
-
-   //  geoSuccess = pos => {
-   //    const crd = pos.coords;
-    
-   //    console.log('Your current position is:');
-   //    console.log(`Latitude : ${crd.latitude}`);
-   //    console.log(`Longitude: ${crd.longitude}`);
-   //    console.log(`More or less ${crd.accuracy} meters.`);
-   //  }
-    
-   //  geoError = err => {
-   //    console.warn(`ERROR(${err.code}): ${err.message}`);
-   //  }
-
     renderPopUp = () => {
       const { city } = this.props
 

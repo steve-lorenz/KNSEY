@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import StarRatings from 'react-star-ratings'
 
 class ShowRanking extends Component {
-
-  componentWillUnmount () {
-    const { city } = this.props;
-    this.setState({
-      ...city,
-    })
-  }
 
   render() {
     const {city, ranking} = this.props
@@ -24,8 +18,11 @@ class ShowRanking extends Component {
           starRatedColor="#311b92"
           numberOfStars={7}
         />
-        
-        <h4>Total Ratings: {ranking.userRanking}</h4>
+        <p style={{fontSize: '2em'}}>Total Ratings: {ranking.userRanking}</p>
+        <div class="row">
+          <div class="col s6"><Link to="/create"><button className="btn deep-purple darken-4 center"><i className="fas fa-map-marker-alt"></i> Rank your City </button></Link></div>
+          <div class="col s6"><Link to="/"><button className="btn deep-purple darken-4 center"><i className="fas fa-search"></i> Find a City </button></Link></div>
+        </div>
       </div>
     )
   }
