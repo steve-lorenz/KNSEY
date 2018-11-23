@@ -101,7 +101,7 @@ class Map extends Component {
                {...viewport}
                onViewportChange={this.handleViewportChange}
                mapStyle="mapbox://styles/mapbox/dark-v9"
-               mapboxApiAccessToken={process.env.REACT_APP_Secret}
+               mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
             >
             {city ? this.renderCityMarker()
             :
@@ -127,7 +127,7 @@ class Map extends Component {
                <Link to="/create"><button className="btn deep-purple darken-4 center">Rank your city</button></Link>
                <Geocoder
                   viewport={viewport}
-                  mapboxApiAccessToken={process.env.REACT_APP_Secret}
+                  mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
                   onSelected={this.handleSearhResult}
                   hideOnSelect={true}
                   className='search-box'
