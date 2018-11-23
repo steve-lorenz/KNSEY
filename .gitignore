@@ -1,9 +1,4 @@
 /node_modules
 yarn.lock
 *.log
-/build
-/functions
-/.firebase
-.firebaserc
-firebase.json
 .env
