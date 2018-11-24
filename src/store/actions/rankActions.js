@@ -80,3 +80,32 @@ export const getRanking = (cityId) => {
       }
    }
 };
+
+export const getUserRanking = (cityId) => {
+   return (dispatch, getState, { getFirebase, getFirestore }) => {
+
+      const userId = getState().firebase.auth.uid;
+      if(cityId) {
+         const firestore = getFirestore();
+         const rankingsRef = firestore.collection('rankings');
+
+         rankingsRef.where('userId', '==', userId).where('cityId', '==', cityId).get()
+         .then(snapshot => {
+            if(!snapshot.empty){
+               const ranking = snapshot.docs[0].data()
+               dispatch({ type: 'GET_USER_RANKING_SUCCESS', ranking });
+            }
+
+         })
+         .catch(err => {
+            console.log('Error getting ranking', err);
+            dispatch({ type: 'GET_USER_RANKING_ERROR', err });
+         });
+      }
+      else {
+         console.log("Ranking not found")
+         dispatch({ type: 'GET_USER_RANKING_NOT_FOUND' })
+      }
+   }
+};
+

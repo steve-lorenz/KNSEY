@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import MapGL, { Marker, Popup } from 'react-map-gl';
-import { getCity } from '../../store/actions/cityActions'
+import { getCity, createCity, setCity } from '../../store/actions/cityActions'
 import { getRanking } from '../../store/actions/rankActions'
 import Geocoder from 'react-mapbox-gl-geocoder'
 import { bindActionCreators } from 'redux'
+import axios from 'axios'
 
 class Map extends Component {
 
@@ -90,6 +91,63 @@ class Map extends Component {
       );
     }
 
+	geoSuccess = pos => {
+      const coords = pos.coords;
+		this.getReverseGeoCode(coords);
+		this.setState({ 
+			userLocation: true
+		})
+    }
+    
+	geoError = err => {
+		console.warn(`ERROR(${err.code}): ${err.message}`);
+		console.log("Sorry, you can't make a ranking without confirming your current location.")
+	}
+
+	getReverseGeoCode = (coords) => {
+		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.longitude},${coords.latitude}.json?types=place&access_token=pk.eyJ1IjoiZHVja21vdXRoYmVhc3QiLCJhIjoiY2pvbjliNjJ0MHNsOTN4cm9qMngzemdnMSJ9.VswQoW3vwNt8WJzbBG0FFg`
+
+		axios.get(`${url}`)
+		.then(response =>  {
+	
+		if(response.statusText === 'OK'){
+         const city = response.data.features[0].place_name.split(',')
+         const cityName = city[0].trim()
+         const state = city[1].trim()
+         const country = city[2].trim()
+			this.setState({
+				cityName: cityName,
+				state: state,
+				country: country
+         })
+         this.props.setCity({
+            cityName: cityName,
+				state: state,
+				country: country
+         })
+         this.props.getCity(cityName)
+         this.props.history.push('/create')
+		}
+		else {
+			return Promise.reject('Something went wrong!')
+		}
+	
+		})
+		.catch(error => {
+			console.log(error);
+		});
+   }
+   
+   renderRanking = () => {
+      const options = {
+         enableHighAccuracy: true,
+         timeout: 10000,
+         maximumAge: 0
+       };
+       
+      navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError, options);
+   }
+
    render() {
 
       const { viewport, popupInfo } = this.state;
@@ -124,7 +182,7 @@ class Map extends Component {
 
             <div style={{height: '100%'}}className="container center">
             <p>{ranking ? ranking.totalRankings : null}</p>
-               <Link to="/create"><button className="btn deep-purple darken-4 center">Rank your city</button></Link>
+               <button onClick={this.renderRanking} className="btn deep-purple darken-4 center">Rank your city</button>
                <Geocoder
                   viewport={viewport}
                   mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
@@ -152,7 +210,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      ...bindActionCreators({ getRanking, getCity }, dispatch)
+      ...bindActionCreators({ getRanking, getCity, createCity, setCity}, dispatch)
    }
 } 
 

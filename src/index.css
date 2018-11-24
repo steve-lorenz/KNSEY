@@ -35,3 +35,7 @@ code {
 .fa-star:hover {
   cursor: pointer;
 }
+
+.container, .MoonLoader {
+  height: 100%;
+}

@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
-import { createRanking } from '../../store/actions/rankActions'
+import { createRanking, getUserRanking } from '../../store/actions/rankActions'
 import { createCity } from '../../store/actions/cityActions'
 import { bindActionCreators } from 'redux'
-import axios from 'axios'
+import { ClipLoader } from 'react-spinners'
 
 class CreateRanking extends Component {
 
@@ -17,7 +17,7 @@ class CreateRanking extends Component {
 			cityName: '',
 			state: '',
 			country: '',
-			userLocation: false,
+			loading: true
 		}
 		this.onClickHandler = this.onClickHandler.bind(this);
 		this.goBack = this.goBack.bind(this);
@@ -25,57 +25,27 @@ class CreateRanking extends Component {
 
 	}
 
-	componentDidMount() {
-      const options = {
-         enableHighAccuracy: true,
-         timeout: 10000,
-         maximumAge: 0
-       };
-       
-       navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError, options);
-	}
-
-	geoSuccess = pos => {
-      const coords = pos.coords;
-		this.getReverseGeoCode(coords);
-		this.setState({ 
-			userLocation: true
-		})
-    }
-    
-	geoError = err => {
-		console.warn(`ERROR(${err.code}): ${err.message}`);
-		console.log("Sorry, you can't make a ranking without confirming your current location.")
-	}
-
-	getReverseGeoCode = (coords) => {
-		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.longitude},${coords.latitude}.json?types=place&access_token=pk.eyJ1IjoiZHVja21vdXRoYmVhc3QiLCJhIjoiY2pvbjliNjJ0MHNsOTN4cm9qMngzemdnMSJ9.VswQoW3vwNt8WJzbBG0FFg`
-
-		axios.get(`${url}`)
-		.then(response =>  {
-	
-		if(response.statusText === 'OK'){
-			const city = response.data.features[0].place_name.split(',')
+	componentDidUpdate(prevProps) {
+		if (this.props.city !== prevProps.city) {
+			const { city } = this.props;
 			this.setState({
-				cityName: city[0].trim(),
-				state: city[1].trim(),
-				country: city[2].trim()
+				cityName: city.cityName,
+				state: city.state,
+				country: city.country,
+				loading: false
 			})
-			this.props.createCity({
-				cityName: city[0].trim(),
-				state: city[1].trim(),
-				country:  city[2].trim()
-			})
+			this.props.getUserRanking(city.cityId);
+		}
 
-		}
-		else {
-			return Promise.reject('Something went wrong!')
-		}
-	
+	}
+
+	componentDidMount () {
+		const { city } = this.props;
+		this.props.createCity({
+			cityName: city.cityName,
+			state: city.state,
+			country: city.country
 		})
-		.catch(error => {
-			console.log(error);
-		});
 	}
    
    goBack() {
@@ -95,39 +65,56 @@ class CreateRanking extends Component {
    }
 
    render () {
-      const { auth } = this.props;
-
+      const { auth, city, ranking } = this.props;
       if(!auth.uid) return <Redirect to="/signin" />
 
       return (
-		<div className="container">		
-			{this.state.userLocation ?
-			<div className="container center">
-				<div className="row">
-					<button style={{marginTop: '20px'}}className="right btn black round" onClick={ this.goBack }>X</button>
+		<div className="container">
+			{ this.state.loading ?
+				<div className='MoonLoader center'>
+					<ClipLoader
+					className={'spinner'}
+					sizeUnit={"px"}
+					size={150}
+					color={'#123abc'}
+					loading={this.state.loading}
+					/>
 				</div>
-				<h1>Ranking</h1>
-				<h3>{this.state.city}</h3>
-				<h5 style={{ marginBottom: '10px' }}>How gay friendly is <strong>{this.state.cityName}</strong>?</h5>
-				<StarRatings 
-				rating={this.state.starRating} 
-				changeRating={ this.onClickHandler } 
-				numberOfStars={7} 
-				starRatedColor="#311b92"
-				starSelectingHoverColor="#311b92"
-				/>
-				<p> 0. Haters - 6. Very Friendly</p>
-				<button className="btn" onClick={ this.handleSubmit }>Submit</button>
-			</div>
-			:
-			<div className="container center">
-				<div className="row">
-					<button style={{marginTop: '20px'}}className="right btn black round" onClick={ this.goBack }>X</button>
+				: 
+				ranking.average ? 
+				<div className="container center">
+					<div className="row">
+						<button style={{marginTop: '20px'}}className="right btn black round" onClick={ this.goBack }>X</button>
+					</div>
+					<h1>Your ranking for <strong>{city.cityName}</strong></h1>
+					<StarRatings
+						rating={ranking.average}
+						starDimension="40px"
+						starSpacing="15px"
+						starRatedColor="#311b92"
+						numberOfStars={7}
+					/>
+					<h4><strong>Rating:{ranking.average}</strong></h4>
+					<p> 0. Haters - 6. Very Friendly</p>
+				</div> 
+				: 					
+				<div className="container center">
+					<div className="row">
+						<button style={{marginTop: '20px'}}className="right btn black round" onClick={ this.goBack }>X</button>
+					</div>
+					<h1>Ranking City</h1>
+					<h5 style={{ marginBottom: '10px' }}>How gay friendly is <strong>{city.cityName}</strong>?</h5>
+					<StarRatings 
+					rating={this.state.starRating} 
+					changeRating={ this.onClickHandler } 
+					numberOfStars={7} 
+					starRatedColor="#311b92"
+					starSelectingHoverColor="#311b92"
+					/>
+					<p> 0. Haters - 6. Very Friendly</p>
+					<button className="btn" onClick={ this.handleSubmit }>Submit</button>
 				</div>
-				<h1>Ranking</h1>
-				<p className="red-text">You need to SHARE your location to rank your current city.</p>
-			</div>
-			}
+			}		
 		</div>	
       )
 	}
@@ -135,15 +122,17 @@ class CreateRanking extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log(state);
+   console.log("Create Ranking State: ", state);
    return {
-      auth: state.firebase.auth
+		auth: state.firebase.auth,
+		city: state.city,
+		ranking: state.ranking
    }
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		...bindActionCreators({ createCity, createRanking }, dispatch)
+		...bindActionCreators({ createCity, createRanking, getUserRanking }, dispatch)
 	}
 }
 

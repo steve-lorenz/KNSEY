@@ -24,6 +24,20 @@ const rankReducer = (state=initState, action) => {
          return {
             ...ranking
          }
+      case 'GET_USER_RANKING_SUCCESS':
+         console.log('Get User Ranking Successful', action.ranking);
+         return {
+            ...state,
+            average: action.ranking.starRating
+         }
+      case 'GET_USER_RANKING_ERROR':
+         console.log('Get user ranking error', action.err);
+         return state;
+      case 'GET_USER_RANKING_NOT_FOUND':
+         console.log('User ranking not found', action);
+         return {
+            ...ranking
+         } 
       default:
          return state;
    }
