@@ -14,18 +14,20 @@ class ShowRanking extends Component {
   render() {
     const {city, ranking} = this.props
     return (
-      <div className='container center'>
-        <h1>{city.cityName} Ranking</h1>
-        <h4>City Rating: {ranking.average}</h4>
-        <StarRatings
-          rating={ranking.average}
-          starDimension="40px"
-          starSpacing="15px"
-          starRatedColor="#311b92"
-          numberOfStars={7}
-        />
-        <p style={{fontSize: '2em'}}>Total Ratings: {ranking.userRanking}</p>
-        <Link to="/"><button className="btn deep-purple darken-4 center"><i className="fas fa-search"></i> Find a City </button></Link>
+      <div className='container'>
+        <div className='center white-box'>
+          <h1>{city.cityName} Ranking</h1>
+          <p className='city-ranking'>City Rating: {ranking.average}</p>
+          <StarRatings
+            rating={ranking.average}
+            starDimension="40px"
+            starSpacing="15px"
+            starRatedColor="#3B0075"
+            numberOfStars={7}
+          />
+          <p style={{fontSize: '2em'}}>Total Ratings: {ranking.userRanking}</p>
+          <Link to="/"><button className="btn find-btn center">Find a City</button></Link>
+        </div>
       </div>
     )
   }

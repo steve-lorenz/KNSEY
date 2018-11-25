@@ -1,7 +1,13 @@
+* { 
+  padding: 0;
+  margin: 0;
+}
+
 html, #root, .App, body, .map{
   height: 100%;
   width: 100%;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -15,27 +21,131 @@ body {
   flex-direction: column;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+#root {
+  background-color: #1F2020;
+}
+
+p {
+  font-size: 1.5em;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+input {
+  color: #E3EBFF;
+}
+
+nav {
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0 10px;
+}
+
+nav .brand-logo { 
+ color: #E3EBFF;
+}
+
+.container {
+  padding-top: 80px;
+}
+
+#email, #password{
+  color: #E3EBFF;
+  outline: none;
 }
 
 .search-box  input, .react-geocoder-item {
-  color: #ffffff;
-  font-size: 1.2em;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #E3EBFF;
+  font-size: 2em;
+  padding: 10px;
 }
 
-.react-geocoder-item:hover{
-  background-color: #ffffff;
-  color: #000000;
-  font-size: 1.2em;
+.react-geocoder-item:hover {
+  background-color: #E3EBFF;
+  color: #1F2020;
   cursor: pointer;
 }
 
-.fa-star:hover {
+.fa-map-marker-alt {
+  color: #3B0075;
+  text-shadow: 5px 5px 2px #000000;
+}
+
+.fa-map-marker-alt:hover {
   cursor: pointer;
 }
 
-.container, .MoonLoader {
+.container {
   height: 100%;
+}
+
+.white-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  background-color: #3B0075;
+}
+
+.white-box {
+  background-color: #373635;
+  padding: 75px 75px;
+  text-align: center;
+  color: #E3EBFF;
+}
+
+.white-box * {
+  margin: 12px 0;
+}
+
+.question {
+  font-size: 2em;
+}
+
+.current-city {
+  font-weight: bold;
+  color: #3B0075;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.MoonLoader {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  padding: 20px;
+}
+
+.mapboxgl-popup-close-button {
+  padding: 7px;
+}
+
+@media (max-width: 915px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 475px) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  p {
+    font-size: 0.8em;
+  }
 }

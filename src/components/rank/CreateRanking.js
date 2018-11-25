@@ -73,49 +73,43 @@ class CreateRanking extends Component {
       if(!auth.uid) return <Redirect to="/signin" />
 
       return (
-		<div className="container">
+		<div className="container white-box-container">
 			{ this.state.loading ?
 				<div className='MoonLoader center'>
 					<ClipLoader
 					className={'spinner'}
 					sizeUnit={"px"}
 					size={150}
-					color={'#123abc'}
+					color={'#3B0075'}
 					loading={this.state.loading}
 					/>
 				</div>
 				: 
 				ranking.average ? 
-				<div className="container center">
-					<div className="row">
-						<button style={{marginTop: '20px'}}className="right btn black round" onClick={ this.goBack }>X</button>
-					</div>
-					<h1>Your ranking for <strong>{city.cityName}</strong></h1>
+				<div className="white-box center">
+					<h1>You've already ranked <span className='current-city'>{city.cityName}</span></h1>
 					<StarRatings
 						rating={ranking.average}
 						starDimension="40px"
-						starSpacing="15px"
-						starRatedColor="#311b92"
+						starRatedColor="#3B0075"
 						numberOfStars={7}
 					/>
-					<h4><strong>Rating:{ranking.average}</strong></h4>
-					<p> 0. Haters - 6. Very Friendly</p>
+					<p><span className='rating'>Rating : {ranking.average}</span></p>
+					<p> 0. Unfriendly - 6. Very Friendly</p>
 				</div> 
 				: 					
-				<div className="container center">
-					<div className="row">
-						<button style={{marginTop: '20px'}}className="right btn black round" onClick={ this.goBack }>X</button>
-					</div>
-					<h1>Ranking City</h1>
-					<h5 style={{ marginBottom: '10px' }}>How gay friendly is <strong>{city.cityName}</strong>?</h5>
+				<div className="white-box center">
+					<h1>RANK YOUR CITY</h1>
+					<p className='question'>How gay friendly is <span className='current-city'>{city.cityName}</span> ?</p>
 					<StarRatings 
 					rating={this.state.starRating} 
-					changeRating={ this.onClickHandler } 
+					changeRating={ this.onClickHandler }
+					starDimension="40px" 
 					numberOfStars={7} 
-					starRatedColor="#311b92"
-					starSelectingHoverColor="#311b92"
+					starRatedColor="#3B0075"
+					starHoverColor="#3B0075"
 					/>
-					<p> 0. Haters - 6. Very Friendly</p>
+					<p> 0. Unfriendly - 6. Very Friendly</p>
 					<button className="btn" onClick={ this.handleSubmit }>Submit</button>
 				</div>
 			}		

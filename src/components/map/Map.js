@@ -86,7 +86,7 @@ class Map extends Component {
           key={`1234`}
           longitude={marker.longitude}
           latitude={marker.latitude} >
-          <i onClick={() => this.renderPopUp()} className="far fa-star fa-8x"></i>
+          <i onClick={() => this.renderPopUp()} className="fas fa-map-marker-alt fa-6x"></i>
         </Marker>
       );
     }
@@ -167,7 +167,7 @@ class Map extends Component {
             }
             
             {popupInfo && city.cityId ? 
-            <Popup tipSize={5}
+            <Popup tipSize={7}
                anchor="bottom"
                longitude={this.state.viewport.longitude}
                latitude={this.state.viewport.latitude}
@@ -191,7 +191,7 @@ class Map extends Component {
 
             <div style={{height: '100%'}}className="container center">
             <p>{ranking ? ranking.totalRankings : null}</p>
-               <button onClick={this.renderRanking} className="btn deep-purple darken-4 center">Rank your city</button>
+               <button onClick={this.renderRanking} className="btn center rank-btn">Rank your city</button>
                <Geocoder
                   viewport={viewport}
                   mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
