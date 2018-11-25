@@ -21,7 +21,7 @@ class Map extends Component {
             longitude: -122.4376,
             zoom: 11
          },
-         marker: {
+         marker : {
             latitude: 37.7577,
             longitude: -122.4376,
          },
@@ -54,16 +54,14 @@ class Map extends Component {
     };
 
     handleSearhResult = (viewport, result) => {
-       const center = result.center
-       const cityName = result.text
-       this.setState({
-         marker: { 
-            latitude: center[1], 
-            longitude: center[0]
+      const cityName = result.text
+      this.props.getCity(cityName)
+      this.setState({
+         marker: {
+            latitude: viewport.latitude,
+            longitude: viewport.longitude
          }
-       })
-       this.props.getCity(cityName)
-
+      })
       return this.handleViewportChange({
          ...viewport
       });
@@ -80,13 +78,12 @@ class Map extends Component {
     }
 
     renderCityMarker = () => {
-      const { marker } = this.state
       return (
         <Marker 
           key={`1234`}
-          longitude={marker.longitude}
-          latitude={marker.latitude} >
-          <i onClick={() => this.renderPopUp()} className="fas fa-map-marker-alt fa-6x"></i>
+          longitude={this.state.marker.longitude}
+          latitude={this.state.marker.latitude} >
+          <i onClick={() => this.renderPopUp()} className="fas fa-map-marker-alt fa-5x"></i>
         </Marker>
       );
     }
@@ -172,8 +169,8 @@ class Map extends Component {
             {popupInfo && city.cityId ? 
             <Popup tipSize={7}
                anchor="bottom"
-               longitude={this.state.viewport.longitude}
-               latitude={this.state.viewport.latitude}
+               longitude={this.state.marker.longitude}
+               latitude={this.state.marker.latitude}
                onClose={() => this.setState({popupInfo: null, showPopup: false})} >
                <h4><Link to={`/${popupInfo.cityId}`}>{city.cityName}</ Link></h4>
                <p>User Average: {this.props.ranking.average ? this.props.ranking.average : 0}</p>
@@ -183,8 +180,8 @@ class Map extends Component {
             popupInfo ? 
             <Popup tipSize={5}
                anchor="bottom"
-               longitude={this.state.viewport.longitude}
-               latitude={this.state.viewport.latitude}
+               longitude={this.state.marker.longitude}
+               latitude={this.state.marker.latitude}
                onClose={() => this.setState({popupInfo: null, showPopup: false})} >
                <h4>No City Ranking Yet.</h4>
             </Popup>
