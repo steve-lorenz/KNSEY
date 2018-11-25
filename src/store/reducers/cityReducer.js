@@ -22,8 +22,10 @@ const cityReducer = (state=initState, action) => {
          console.log('Get city error', action.err);
          return state;
       case 'CITY_NOT_FOUND':
-         console.log('City not found', action);
-         return state;
+      console.log('City not found', action);   
+         return {   
+            ...city,
+         }
       case 'SET_CITY_SUCCESS':
          console.log('City set success', action.city);
          return {

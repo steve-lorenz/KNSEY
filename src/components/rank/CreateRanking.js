@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
 import { createRanking, getUserRanking } from '../../store/actions/rankActions'
-import { createCity } from '../../store/actions/cityActions'
+import { createCity, getCity } from '../../store/actions/cityActions'
 import { bindActionCreators } from 'redux'
 import { ClipLoader } from 'react-spinners'
 
@@ -23,6 +23,10 @@ class CreateRanking extends Component {
 		this.goBack = this.goBack.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 
+	}
+
+	componentWillUnmount (){
+		this.props.getCity(' ');
 	}
 
 	componentDidUpdate(prevProps) {
@@ -49,7 +53,7 @@ class CreateRanking extends Component {
 	}
    
    goBack() {
-      this.props.history.goBack();
+		this.props.history.goBack();
    }
 
    onClickHandler = rating =>  {
@@ -132,7 +136,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		...bindActionCreators({ createCity, createRanking, getUserRanking }, dispatch)
+		...bindActionCreators({ createCity, createRanking, getUserRanking, getCity }, dispatch)
 	}
 }
 

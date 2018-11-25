@@ -165,16 +165,25 @@ class Map extends Component {
             :
             null
             }
-            {popupInfo ? 
-         
+            
+            {popupInfo && city.cityId ? 
             <Popup tipSize={5}
                anchor="bottom"
                longitude={this.state.viewport.longitude}
                latitude={this.state.viewport.latitude}
                onClose={() => this.setState({popupInfo: null, showPopup: false})} >
                <h4><Link to={`/${popupInfo.cityId}`}>{city.cityName}</ Link></h4>
-               <p>User Average: {this.props.ranking.average}</p>
-               <p>Total User Rankings: {this.props.ranking.userRanking}</p>
+               <p>User Average: {this.props.ranking.average ? this.props.ranking.average : 0}</p>
+               <p>Total User Rankings: {this.props.ranking.userRanking ? this.props.ranking.userRanking : 0}</p>
+            </Popup>
+            :
+            popupInfo ? 
+            <Popup tipSize={5}
+               anchor="bottom"
+               longitude={this.state.viewport.longitude}
+               latitude={this.state.viewport.latitude}
+               onClose={() => this.setState({popupInfo: null, showPopup: false})} >
+               <h4>No City Ranking Yet.</h4>
             </Popup>
             : 
             null

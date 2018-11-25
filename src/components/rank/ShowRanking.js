@@ -2,8 +2,14 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import StarRatings from 'react-star-ratings'
+import { getCity } from '../../store/actions/cityActions'
 
 class ShowRanking extends Component {
+
+
+  componentWillUnmount (){
+    this.props.getCity(' ');
+  }
 
   render() {
     const {city, ranking} = this.props
@@ -19,10 +25,7 @@ class ShowRanking extends Component {
           numberOfStars={7}
         />
         <p style={{fontSize: '2em'}}>Total Ratings: {ranking.userRanking}</p>
-        <div class="row">
-          <div class="col s6"><Link to="/create"><button className="btn deep-purple darken-4 center"><i className="fas fa-map-marker-alt"></i> Rank your City </button></Link></div>
-          <div class="col s6"><Link to="/"><button className="btn deep-purple darken-4 center"><i className="fas fa-search"></i> Find a City </button></Link></div>
-        </div>
+        <Link to="/"><button className="btn deep-purple darken-4 center"><i className="fas fa-search"></i> Find a City </button></Link>
       </div>
     )
   }
@@ -39,8 +42,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-     
-  }
+    getCity: (cityName) => dispatch(getCity(cityName))
+ }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowRanking)
