@@ -152,6 +152,9 @@ class Map extends Component {
 
       const { viewport, popupInfo } = this.state;
       const { city, ranking } = this.props;
+      const queryParams = {
+         types: 'place'
+      }
 
       return (
          <div className="map">
@@ -198,6 +201,7 @@ class Map extends Component {
                   onSelected={this.handleSearhResult}
                   hideOnSelect={true}
                   className='search-box'
+                  queryParams={ queryParams }
                />
             </div>
             </MapGL>
