@@ -10,7 +10,7 @@ const CustomNavbar = (props) => {
    const links = auth.uid ? <SignedInLinks profile={profile} /> :  <SignedOutLinks />;
 
    return (
-      <Navbar className="nav-wrapper">
+      <Navbar>
          <Link to='/' className="brand-logo">KNSEY</Link>
          { links }
       </Navbar>
