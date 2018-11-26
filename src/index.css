@@ -138,6 +138,10 @@ nav .brand-logo {
   p {
     font-size: 1em;
   }
+
+  .current-city {
+    font-size: 1.5em;
+  }
 }
 
 @media (max-width: 475px) {
@@ -147,5 +151,9 @@ nav .brand-logo {
 
   p {
     font-size: 0.8em;
+  }
+
+  .current-city {
+    font-size: 1.1em;
   }
 }

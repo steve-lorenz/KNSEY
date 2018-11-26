@@ -168,6 +168,7 @@ class Map extends Component {
             
             {popupInfo && city.cityId ? 
             <Popup tipSize={7}
+               closeOnClick={false}
                anchor="bottom"
                longitude={this.state.marker.longitude}
                latitude={this.state.marker.latitude}

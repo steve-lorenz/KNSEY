@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
 import { createRanking, getUserRanking } from '../../store/actions/rankActions'
 import { createCity, getCity } from '../../store/actions/cityActions'
@@ -96,6 +97,7 @@ class CreateRanking extends Component {
 					/>
 					<p><span className='rating'>Rating : {ranking.average}</span></p>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
+					<Link to="/"><button className="btn find-btn center">Find a City</button></Link>
 				</div> 
 				: 					
 				<div className="white-box center">
