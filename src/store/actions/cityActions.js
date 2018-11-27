@@ -1,6 +1,5 @@
 export const createCity = (city) => {
    return (dispatch, getState, { getFirestore }) => {
-      console.log("City Stuff", city);
       const firestore = getFirestore();
       const citiesRef = firestore.collection('cities');
       if(city.cityName) {
@@ -16,9 +15,6 @@ export const createCity = (city) => {
                .catch((err) => {
                   dispatch({ type: 'CREATE_CITY_ERROR', err })
                })
-            }
-            else{
-               console.log("City already exist.")
             }
          })
          .catch(err => {
@@ -46,7 +42,6 @@ export const getCity = (cityName) => {
             }
          })
          .catch(err => {
-            console.log('Error getting documents', err);
             dispatch({ type: 'GET_CITY_ERROR', err });
          });
       }

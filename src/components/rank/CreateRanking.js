@@ -123,7 +123,6 @@ class CreateRanking extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log("Create Ranking State: ", state);
    return {
 		auth: state.firebase.auth,
 		city: state.city,

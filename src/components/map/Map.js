@@ -104,7 +104,6 @@ class Map extends Component {
     
 	geoError = err => {
 		console.warn(`ERROR(${err.code}): ${err.message}`);
-		console.log("Sorry, you can't make a ranking without confirming your current location.")
 	}
 
 	getReverseGeoCode = (coords) => {
@@ -225,7 +224,6 @@ class Map extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log("Map State", state);
    return {
       auth: state.firebase.auth,
       city: state.city,

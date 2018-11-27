@@ -1,13 +1,10 @@
 export const createRanking = (ranking) => {
    return (dispatch, getState, { getFirebase, getFirestore }) => {
-
       const firestore = getFirestore();
       const profile = getState().firebase.profile;
       const userId = getState().firebase.auth.uid;
       const citiesRef = firestore.collection('cities');
       const rankingsRef = firestore.collection('rankings');
-
-      console.log("State is ", getState())
 
       citiesRef.where('cityName', '==', ranking.cityName).get()
       .then(snapshot => {
@@ -43,7 +40,6 @@ export const createRanking = (ranking) => {
 export const getRanking = (cityId) => {
    return (dispatch, getState, { getFirebase, getFirestore }) => {
 
-      console.log(cityId)
       if(cityId) {
          const firestore = getFirestore();
          const rankingsRef = firestore.collection('rankings');
@@ -70,12 +66,10 @@ export const getRanking = (cityId) => {
 
          })
          .catch(err => {
-            console.log('Error getting rankings', err);
             dispatch({ type: 'GET_RANKING_ERROR', err });
          });
       }
       else {
-         console.log("Ranking not found")
          dispatch({ type: 'RANKING_NOT_FOUND' })
       }
    }
@@ -98,12 +92,10 @@ export const getUserRanking = (cityId) => {
 
          })
          .catch(err => {
-            console.log('Error getting ranking', err);
             dispatch({ type: 'GET_USER_RANKING_ERROR', err });
          });
       }
       else {
-         console.log("Ranking not found")
          dispatch({ type: 'GET_USER_RANKING_NOT_FOUND' })
       }
    }

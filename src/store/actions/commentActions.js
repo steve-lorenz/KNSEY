@@ -42,10 +42,8 @@ export const getComments = (cityId) => {
                   comments.push({...change.doc.data(), id: change.doc.id});
                }
                if (change.type === "modified") {
-                  console.log("Modified city: ", change.doc.data());
                   for( let i = 0; i <= comments.length-1; i++){
                      if ( comments[i].id === change.doc.id) {
-                        console.log("here is the comment to change", change.doc.data())
                        comments[i] = {...change.doc.data(), id: change.doc.id}; 
                      }
                   }
@@ -67,7 +65,6 @@ export const getComments = (cityId) => {
             dispatch({ type: 'GET_COMMENTS_NOT_FOUND' })
            }
          }, err => {
-           console.log(`Encountered error: ${err}`);
            dispatch({ type: 'GET_COMMENTS_ERROR', err })
          });
       }
@@ -85,11 +82,9 @@ export const deleteComment = (commentId) => {
 
          commentsRef.doc(commentId).delete()
          .then(() => {
-            console.log("Document successfully deleted!");
             dispatch({ type: 'DELETE_COMMENT_SUCCESS' })
          })
          .catch((err) => {
-            console.error("Error removing document: ", err);
             dispatch({ type: 'DELETE_COMMENT_ERROR', err })
          });
             
@@ -108,15 +103,12 @@ export const editComment = (commentId) => {
 
          commentsRef.doc(commentId).get()
          .then((doc) => {
-            if (!doc.exists) {
-            console.log('No such document!');
-            } else {
-            const comment = {...doc.data(), id: doc.id}
-            dispatch({ type: 'EDIT_COMMENT_SUCCESS', comment })
+            if (doc.exists) {
+               const comment = {...doc.data(), id: doc.id}
+               dispatch({ type: 'EDIT_COMMENT_SUCCESS', comment })
             }
          })
          .catch((err) => {
-            console.error("Error editing comment: ", err);
             dispatch({ type: 'EDIT_COMMENT_ERROR', err })
          });
             
@@ -141,11 +133,9 @@ export const updateComment = (updatedComment) => {
             userLastName: updatedComment.userLastName
          })
          .then(() => {
-            console.log("Document successfully updated!");
             dispatch({ type: 'UPDATE_COMMENT_SUCCESS' })
          })
          .catch((err) => {
-            console.error("Error updating comment: ", err);
             dispatch({ type: 'UPDATE_COMMENT_ERROR', err })
          });
       }

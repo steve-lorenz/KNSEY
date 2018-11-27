@@ -38,7 +38,6 @@ class ShowRanking extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("Show Ranking State", state);
   return {
      auth: state.firebase.auth,
      city: state.city,

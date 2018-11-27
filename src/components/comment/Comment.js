@@ -17,7 +17,6 @@ class Comment extends Component {
 
   componentWillReceiveProps (nextProps) {
      if(nextProps.comment.editComment){
-      console.log("Edit selected", nextProps.comment.editComment)
       this.setState({
          content: nextProps.comment.editComment.content,
          isEditing: true
@@ -57,13 +56,11 @@ class Comment extends Component {
    }
 
    handleEdit = (commentId) => {
-   console.log("Edit clicked, comment ID:", commentId)
-   this.props.editComment(commentId)
+      this.props.editComment(commentId)
    }
 
    handleDelete = (commentId) => {
-   console.log("Delete clicked, comment ID:", commentId)
-   this.props.deleteComment(commentId)
+      this.props.deleteComment(commentId)
    }
 
   render() {
@@ -113,7 +110,6 @@ class Comment extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log("Comment State", state)
    return {
      auth : state.firebase.auth,
      comment: state.comment,
