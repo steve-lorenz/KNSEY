@@ -27,6 +27,8 @@ class Map extends Component {
          },
          popupInfo: null,
          showPopup: false,
+         isMarkerShowing: false,
+         isInputShowing: true,
       };
 
     }
@@ -60,7 +62,8 @@ class Map extends Component {
          marker: {
             latitude: viewport.latitude,
             longitude: viewport.longitude
-         }
+         },
+         isMarkerShowing: true
       })
       return this.handleViewportChange({
          ...viewport
@@ -72,20 +75,23 @@ class Map extends Component {
 
       this.setState({
          popupInfo: this.props.city, 
-         showPopup: true
+         showPopup: true,
+         isInputShowing: false
       })
       this.props.getRanking(city.cityId)
     }
 
     renderCityMarker = () => {
-      return (
-        <Marker 
-          key={`1234`}
-          longitude={this.state.marker.longitude}
-          latitude={this.state.marker.latitude} >
-          <i onClick={() => this.renderPopUp()} className="fas fa-map-marker-alt fa-5x"></i>
-        </Marker>
-      );
+      if(this.state.isMarkerShowing) {
+         return (
+            <Marker 
+              key={`1234`}
+              longitude={this.state.marker.longitude}
+              latitude={this.state.marker.latitude} >
+              <i onClick={() => this.renderPopUp()} className="fas fa-map-marker-alt fa-5x"></i>
+            </Marker>
+          );
+      }
     }
 
 	geoSuccess = pos => {
@@ -172,7 +178,7 @@ class Map extends Component {
                anchor="bottom"
                longitude={this.state.marker.longitude}
                latitude={this.state.marker.latitude}
-               onClose={() => this.setState({popupInfo: null, showPopup: false})} >
+               onClose={() => this.setState({popupInfo: null, showPopup: false, isInputShowing: true})} >
                <h4><Link to={`/${popupInfo.cityId}`}>{city.cityName}</ Link></h4>
                <p>User Average: {this.props.ranking.average ? this.props.ranking.average : 0}</p>
                <p>Total User Rankings: {this.props.ranking.userRanking ? this.props.ranking.userRanking : 0}</p>
@@ -183,25 +189,28 @@ class Map extends Component {
                anchor="bottom"
                longitude={this.state.marker.longitude}
                latitude={this.state.marker.latitude}
-               onClose={() => this.setState({popupInfo: null, showPopup: false})} >
+               onClose={() => this.setState({popupInfo: null, showPopup: false, isInputShowing: true})} >
                <h4>No City Ranking Yet.</h4>
             </Popup>
             : 
             null
             }
-
+            {this.state.isInputShowing ?
             <div style={{height: '100%'}}className="container center">
             <p>{ranking ? ranking.totalRankings : null}</p>
+     
                <button onClick={this.renderRanking} className="btn center rank-btn">Rank your city</button>
                <Geocoder
-                  viewport={viewport}
-                  mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
-                  onSelected={this.handleSearhResult}
-                  hideOnSelect={true}
-                  className='search-box'
-                  queryParams={ queryParams }
+               viewport={viewport}
+               mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
+               onSelected={this.handleSearhResult}
+               hideOnSelect={true}
+               className='search-box'
+               queryParams={ queryParams }
                />
+
             </div>
+            : null}
             </MapGL>
           
          </div>
