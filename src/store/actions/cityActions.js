@@ -1,21 +1,24 @@
 export const createCity = (city) => {
    return (dispatch, getState, { getFirestore }) => {
-
+      console.log("City Stuff", city);
       const firestore = getFirestore();
       const citiesRef = firestore.collection('cities');
       if(city.cityName) {
-         citiesRef.where('cityName', '==', city.cityName).get()
+         citiesRef.where('cityName', '==', city.cityName).where('state', '==', city.state).get()
          .then(snapshot => {
             if(snapshot.empty) {
                firestore.collection('cities').add({
                   ...city
                })
-               .then(() => {
-                  dispatch({ type: 'CREATE_CITY', city });
+               .then((docRef) => {
+                  dispatch({ type: 'CREATE_CITY', ...city, id: docRef.id });
                })
                .catch((err) => {
                   dispatch({ type: 'CREATE_CITY_ERROR', err })
                })
+            }
+            else{
+               console.log("City already exist.")
             }
          })
          .catch(err => {

@@ -3,8 +3,14 @@ const initState = {}
 const cityReducer = (state=initState, action) => {
    switch(action.type) {
       case 'CREATE_CITY':
-         console.log('Created city', action.city);
-         return state;
+         console.log('Created city', action);
+         return {
+            ...state,
+            cityId: action.id,
+            cityName: action.cityName,
+            country: action.country,
+            state: action.state
+         };
       case 'CREATE_CITY_ERROR':
          console.log('Create city error', action.err);
          return state;

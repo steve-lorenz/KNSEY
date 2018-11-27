@@ -46,12 +46,8 @@ class CreateRanking extends Component {
 
 	componentDidMount () {
 		const { city } = this.props;
-		this.props.createCity({
-			cityName: city.cityName,
-			state: city.state,
-			country: city.country
-		})
 		if( city.cityId ){
+			this.props.getCity(city.cityName);
 			this.setState({
 				loading: false
 			})

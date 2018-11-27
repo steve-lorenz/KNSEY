@@ -123,6 +123,11 @@ class Map extends Component {
 				state: state,
 				country: country
          })
+         this.props.createCity({
+            cityName: cityName,
+				state: state,
+				country: country
+         })
          this.props.setCity({
             cityName: cityName,
 				state: state,
