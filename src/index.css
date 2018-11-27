@@ -148,6 +148,10 @@ nav .brand-logo {
   background-color: #1F2020;
 }
 
+.danger {
+  background-color: #690404;
+}
+
 @media (max-width: 915px) {
   h1 {
     font-size: 2em;

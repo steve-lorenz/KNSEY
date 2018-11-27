@@ -30,7 +30,6 @@ export const getComments = (cityId) => {
    return (dispatch, getState, { getFirebase, getFirestore }) => {
 
       const firestore = getFirestore();
-      // const cityId = getState().city.cityId
 
       if(cityId){
          const query = firestore.collection('comments').where('cityId', '==', cityId);
@@ -41,6 +40,17 @@ export const getComments = (cityId) => {
             querySnapshot.docChanges().forEach(change => {
                if(change.type === "added"){
                   comments.unshift({...change.doc.data(), id: change.doc.id});
+               }
+               if (change.type === "modified") {
+                  console.log("Modified city: ", change.doc.data());
+               }
+               if (change.type === "removed") {
+                  for( let i = 0; i < comments.length-1; i++){ 
+                     if ( comments[i].id === change.doc.id) {
+                       comments.splice(i, 1); 
+                     }
+                  }
+                  return comments
                }           
             });
             console.log("Comments: ", comments)
@@ -53,6 +63,29 @@ export const getComments = (cityId) => {
            console.log(`Encountered error: ${err}`);
            dispatch({ type: 'GET_COMMENTS_ERROR', err })
          });
+      }
+
+   }
+};
+
+export const deleteComment = (commentId) => {
+   return (dispatch, getState, { getFirebase, getFirestore }) => {
+
+      const firestore = getFirestore();
+
+      if(commentId){
+         const commentsRef = firestore.collection('comments');
+
+         commentsRef.doc(commentId).delete()
+         .then(() => {
+            console.log("Document successfully deleted!");
+            dispatch({ type: 'DELETE_COMMENT_SUCCESS' })
+         })
+         .catch((err) => {
+            console.error("Error removing document: ", err);
+            dispatch({ type: 'DELETE_COMMENT_ERROR', err })
+         });
+            
       }
 
    }
