@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import StarRatings from 'react-star-ratings'
 import { getCity } from '../../store/actions/cityActions'
+import Comment from '../comment/Comment'
 
 class ShowRanking extends Component {
 
@@ -27,6 +28,9 @@ class ShowRanking extends Component {
           />
           <p style={{fontSize: '2em'}}>Total Ratings: {ranking.userRanking}</p>
           <Link to="/"><button className="btn find-btn center">Find a City</button></Link>
+        </div>
+        <div className="white-box center">
+          <Comment />
         </div>
       </div>
     )
