@@ -152,6 +152,11 @@ nav .brand-logo {
   background-color: #690404;
 }
 
+.warning {
+  background-color: #EFBA4B;
+  color: #1F2020;
+}
+
 @media (max-width: 915px) {
   h1 {
     font-size: 2em;

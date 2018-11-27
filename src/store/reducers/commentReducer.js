@@ -28,6 +28,21 @@ const commentReducer = (state=initState, action) => {
       case 'DELETE_COMMENT_ERROR':
          console.log('Delete comment error', action.err);
          return state;
+      case 'EDIT_COMMENT_SUCCESS':
+         console.log('Edit comment success', action.comment);
+         return {
+            ...state,
+            editComment: action.comment
+         };
+      case 'EDIT_COMMENT_ERROR':
+         console.log('Edit comment error', action.err);
+         return state;
+      case 'UPDATE_COMMENT_SUCCESS':
+         console.log('Edit comment error', action.err);
+         return state;
+      case 'UPDATE_COMMENT_ERROR':
+         console.log('Edit comment error', action.err);
+         return state;
       default:
          return state;
    }
