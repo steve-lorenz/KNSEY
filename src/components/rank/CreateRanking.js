@@ -51,6 +51,11 @@ class CreateRanking extends Component {
 			state: city.state,
 			country: city.country
 		})
+		if( city.cityId ){
+			this.setState({
+				loading: false
+			})
+		}
 	}
    
    goBack() {
