@@ -67,7 +67,8 @@ class Comment extends Component {
    }
 
   render() {
-    const { comment, auth } = this.props
+    const { comment, auth } = this.props;
+    const { profile } = this.props;
     return (
       <div>
         <h1>Comments</h1>
@@ -91,7 +92,7 @@ class Comment extends Component {
                   <ul key={comment.id} className="collection">
                      <li className='collection-item'>{comment.content}</li>
                      <li className='collection-item'>Posted by: {comment.userFirstName}, {comment.userFirstName[0]}</li>
-                     {comment.userId === auth.uid 
+                     {comment.userId === auth.uid || profile.role === 3
                      ? 
                      <div>
                         <button className='btn warning' onClick={() => this.handleEdit(comment.id)}>Edit</button>
