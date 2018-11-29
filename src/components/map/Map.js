@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import MapGL, { Marker, Popup } from 'react-map-gl';
 import { getCity, createCity, setCity } from '../../store/actions/cityActions'
 import { getRanking } from '../../store/actions/rankActions'
+import { getComments } from '../../store/actions/commentActions'
 import Geocoder from 'react-mapbox-gl-geocoder'
 import { bindActionCreators } from 'redux'
 import axios from 'axios'
@@ -79,6 +80,7 @@ class Map extends Component {
          isInputShowing: false
       })
       this.props.getRanking(city.cityId)
+      this.props.getComments(city.cityId)
     }
 
     renderCityMarker = () => {
@@ -233,7 +235,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      ...bindActionCreators({ getRanking, getCity, createCity, setCity}, dispatch)
+      ...bindActionCreators({ getRanking, getCity, getComments, createCity, setCity}, dispatch)
    }
 } 
 

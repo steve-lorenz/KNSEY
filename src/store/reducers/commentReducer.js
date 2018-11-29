@@ -3,7 +3,9 @@ const initState = {}
 const commentReducer = (state=initState, action) => {
    switch(action.type) {
       case 'CREATE_COMMENT_SUCCESS':
-         return state;
+         return {
+            ...state
+         };
       case 'CREATE_COMMENT_ERROR':
          return state;
       case 'GET_COMMENTS_SUCCESS':
