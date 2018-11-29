@@ -8,15 +8,23 @@ export const createComment = (comment) => {
 
       if(cityId){
          firestore.collection('comments').add({
-            ...comment,
+            content: comment.content,
             userId : userId,
             cityId: cityId,
             userFirstName: profile.firstName,
             userLastName: profile.lastName,
             createdAt: new Date()
          })
-         .then(() => {
-            dispatch({ type: 'CREATE_COMMENT_SUCCESS', comment });
+         .then((docRef) => {
+            dispatch({ type: 'CREATE_COMMENT_SUCCESS', 
+               id: docRef.id,
+               content: comment.content,
+               userId : userId,
+               cityId: cityId,
+               userFirstName: profile.firstName,
+               userLastName: profile.lastName,
+               createdAt: new Date() 
+            });
          })
          .catch((err) => {
             dispatch({ type: 'CREATE_COMMENT_ERROR', err });
@@ -121,13 +129,14 @@ export const updateComment = (updatedComment) => {
    return (dispatch, getState, { getFirebase, getFirestore }) => {
 
       const firestore = getFirestore();
+      const firebase = getFirebase();
 
       if(updatedComment.id){
          const commentsRef = firestore.collection('comments');
          commentsRef.doc(updatedComment.id).update({
             cityId: updatedComment.cityId,
             content: updatedComment.content,
-            updatedAt: new Date(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
             userFirstName: updatedComment.userFirstName,
             userId: updatedComment.userId,
             userLastName: updatedComment.userLastName
