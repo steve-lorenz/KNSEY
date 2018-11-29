@@ -144,8 +144,16 @@ nav .brand-logo {
   height: 100%;
 }
 
+.input-field label{
+  padding: 5px 2px;
+}
+
 .collection .collection-item {
   background-color: #1F2020;
+}
+
+.collection span {
+  display: block;
 }
 
 .danger {

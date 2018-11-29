@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { createComment, getComments, deleteComment, editComment, updateComment } from '../../store/actions/commentActions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import moment from 'moment'
 
 class Comment extends Component {
 
@@ -57,13 +58,13 @@ class Comment extends Component {
    }
 
    handleEdit = (commentId) => {
-   console.log("Edit clicked, comment ID:", commentId)
-   this.props.editComment(commentId)
+      console.log("Edit clicked, comment ID:", commentId)
+      this.props.editComment(commentId)
    }
 
    handleDelete = (commentId) => {
-   console.log("Delete clicked, comment ID:", commentId)
-   this.props.deleteComment(commentId)
+      console.log("Delete clicked, comment ID:", commentId)
+      this.props.deleteComment(commentId)
    }
 
   render() {
@@ -91,13 +92,19 @@ class Comment extends Component {
                   return(
                   <ul key={comment.id} className="collection">
                      <li className='collection-item'>{comment.content}</li>
-                     <li className='collection-item'>Posted by: {comment.userFirstName}, {comment.userFirstName[0]}</li>
+                     <li className='collection-item'>
+                     Posted by: {comment.userFirstName} {comment.userLastName[0]}
+                     <span>{comment.updatedAt ? `Updated: ${moment(comment.updatedAt.toDate()).calendar()}` : 
+                        `Posted: ${moment(comment.createdAt.toDate()).calendar()}`}</span>
+                     </li>
                      {comment.userId === auth.uid || profile.role === 3
-                     ? 
-                     <div>
-                        <button className='btn warning' onClick={() => this.handleEdit(comment.id)}>Edit</button>
-                        <button className='btn danger' onClick={() => this.handleDelete(comment.id)}>Delete</button>
-                     </div>
+                     ?
+                        !this.state.isEditing ?
+                           <div>
+                              <button className='btn warning' onClick={() => this.handleEdit(comment.id)}>Edit</button>
+                              <button className='btn danger' onClick={() => this.handleDelete(comment.id)}>Delete</button>
+                           </div>
+                        : null
                      : null
                      }
                   </ul>

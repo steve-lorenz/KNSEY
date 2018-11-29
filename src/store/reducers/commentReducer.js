@@ -3,8 +3,10 @@ const initState = {}
 const commentReducer = (state=initState, action) => {
    switch(action.type) {
       case 'CREATE_COMMENT_SUCCESS':
-         console.log('Create comment successful', action.comment);
-         return state;
+         console.log('Create comment successful', action);
+         return {
+            ...state
+         };
       case 'CREATE_COMMENT_ERROR':
          console.log('Create comment error', action.err);
          return state;
