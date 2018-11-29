@@ -16,17 +16,6 @@ export const createComment = (comment) => {
             createdAt: new Date()
          })
          .then((docRef) => {
-            console.log("Create comment action", comment.content)
-            console.log("Create comment action res", 
-            {
-               id: docRef.id,
-               content: comment.content,
-               userId : userId,
-               cityId: cityId,
-               userFirstName: profile.firstName,
-               userLastName: profile.lastName,
-               createdAt: new Date()
-            })
             dispatch({ type: 'CREATE_COMMENT_SUCCESS', 
                id: docRef.id,
                content: comment.content,
