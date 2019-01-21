@@ -30,6 +30,7 @@ const cityReducer = (state=initState, action) => {
       case 'SET_CITY_SUCCESS':
          return {
             ...state,
+            cityId: action.city.cityId,
             cityName: action.city.cityName,
             country: action.city.country,
             state: action.city.state

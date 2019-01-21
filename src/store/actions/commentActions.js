@@ -1,10 +1,10 @@
 export const createComment = (comment) => {
    return (dispatch, getState, { getFirebase, getFirestore }) => {
-
       const firestore = getFirestore();
       const profile = getState().firebase.profile;
       const userId = getState().firebase.auth.uid;
       const cityId = getState().city.cityId
+      console.log("City ID", cityId)
 
       if(cityId){
          firestore.collection('comments').add({
