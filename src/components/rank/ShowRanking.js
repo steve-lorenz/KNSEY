@@ -24,7 +24,6 @@ class ShowRanking extends Component {
     const cityURL = this.props.match.params
     this.findCity(cityURL.id)
   }
-
   async findCity(cityId) {
     let cityResults = await getCityById(cityId);
     if(cityResults) {
