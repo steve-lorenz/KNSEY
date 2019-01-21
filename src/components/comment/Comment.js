@@ -8,12 +8,12 @@ class Comment extends Component {
 
   state = {
      content: '',
-     isEditing: false
+     isEditing: false,
   }
 
   componentDidMount () {
-   const { city } = this.props;
-   this.props.getComments(city.cityId)
+   const { cityStuff } = this.props;
+   this.props.getComments(cityStuff.cityId)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -33,6 +33,7 @@ class Comment extends Component {
 
   handleSubmit = (e) => {
       e.preventDefault();
+      console.log("comment add", this.state)
       this.props.createComment(this.state)
       this.setState({
          content: ''
@@ -91,8 +92,8 @@ class Comment extends Component {
                      <li className='collection-item'>{comment.content}</li>
                      <li className='collection-item'>
                      Posted by: {comment.userFirstName} {comment.userLastName[0]}
-                     <span>{comment.updatedAt ? `Updated: ${moment(comment.updatedAt.toDate()).calendar()}` : 
-                        `Posted: ${moment(comment.createdAt.toDate()).calendar()}`}</span>
+                     <span>{comment.updatedAt ? `Updated: ${moment(new Date(comment.updatedAt.seconds*1000)).calendar()}` : 
+                        `Posted: ${moment(new Date(comment.createdAt.seconds*1000)).calendar()}`}</span>
                      </li>
                      {comment.userId === auth.uid || profile.role === 3
                      ?

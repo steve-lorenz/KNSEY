@@ -54,14 +54,22 @@ nav .brand-logo {
   outline: none;
 }
 
-.search-box  input, .react-geocoder-item {
+.search-box  input, .search-results, .react-geocoder-item {
   background-color: rgba(0, 0, 0, 0.6);
   color: #E3EBFF;
   font-size: 2em;
   padding: 5px;
 }
 
-.react-geocoder-item:hover {
+.ac-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #E3EBFF;
+  font-size: 2em;
+  padding: 0;
+  margin: 0;
+}
+
+.react-geocoder-item, .search-results li:hover {
   background-color: #E3EBFF;
   color: #1F2020;
   cursor: pointer;
