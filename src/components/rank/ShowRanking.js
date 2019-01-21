@@ -25,8 +25,17 @@ class ShowRanking extends Component {
     this.findCity(cityURL.id)
   }
 
-  componentWillUnmount() {
-    this.props.getCity(' ');
+  async findCity(cityId) {
+    let cityResults = await getCityById(cityId);
+    if(cityResults) {
+      let rankResults = await getRankingById(cityId)
+      this.setState({
+        city: cityResults,
+        ranking: rankResults,
+        loading: false,
+      })
+      this.props.setCity(cityResults)
+    }
   }
 
   async findCity(cityId) {
