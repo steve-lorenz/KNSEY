@@ -173,6 +173,49 @@ nav .brand-logo {
   color: #1F2020;
 }
 
+#landing-title {
+  color: #E3EBFF;
+}
+
+#subtitle {
+  color: #E3EBFF;
+  font-size: 2em;
+}
+
+.landing-jumbotron {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.landing-container {
+  z-index: 1;
+  position: relative;
+}
+
+.landing-bg {
+  background: url('./assets/images/rainbow_world_map.png') no-repeat center center fixed;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+}
+
+.ranking-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media (max-width: 915px) {
   h1 {
     font-size: 2em;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCity, createCity, setCity } from '../../store/actions/cityActions'
 import { getRanking } from '../../store/actions/rankActions'
@@ -26,15 +27,24 @@ class Landing extends Component {
 
    render() {
       return (
-         <div className="container">
-            <Geocoder
-            inputClass='ac-box'
-            resultsClass='search-results'
-            accessToken={process.env.REACT_APP_MAPBOX_API}
-            onSelect={this.handleSearhResult}
-            inputPlaceholder='Search for city...'
-            types='place'
-            />
+         <div className="container landing-container">
+            <div className="landing-jumbotron">
+               <div className="landing-bg"></div>
+               <h1 id="landing-title">KNSEY</h1>
+               <p id="subtitle">See how queer friendly your city is.</p>
+               <Geocoder
+               inputClass='ac-box'
+               resultsClass='search-results'
+               accessToken={process.env.REACT_APP_MAPBOX_API}
+               onSelect={this.handleSearhResult}
+               inputPlaceholder='Search for city...'
+               types='place'
+               />
+               <div className="ranking-container">
+                  <p id="subtitle">Rank a city using your current location.</p>
+                  <Link to="/create"><button className="btn center"><i className="fas fa-location-arrow"></i></button></Link>
+               </div>
+            </div>
          </div>
       )
    }
