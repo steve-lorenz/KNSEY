@@ -185,35 +185,30 @@ nav .brand-logo {
 .landing-jumbotron {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
+  justify-content: space-around;
+  min-height: 100%;
+  width: 960px;
+  margin: 0 auto;
 }
 
 .landing-container {
+  background: url('./assets/images/rainbow_world_map.png') no-repeat center center fixed;
   z-index: 1;
   position: relative;
-}
-
-.landing-bg {
-  background: url('./assets/images/rainbow_world_map.png') no-repeat center center fixed;
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0.3;
-  width: 100%;
-  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .ranking-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  bottom: 35px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 @media (max-width: 915px) {
