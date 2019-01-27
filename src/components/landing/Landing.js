@@ -13,16 +13,34 @@ class Landing extends Component {
    constructor(props) {
       super(props);
       
+      this.state = {
+         isNotRanked: false,
+         cityName: '',
+      }
+      
       this.handleSearhResult = this.handleSearhResult.bind(this);
+      this.handleSuggest = this.handleSuggest.bind(this);
    }
 
-
-   async handleSearhResult (result){
+   async handleSearhResult(result){
       const cityName = result.text
+      this.setState({ cityName: cityName })
       let cityResults = await getCityByName(cityName);
       if(cityResults) {
          this.props.history.push(`/${cityResults.cityId}`);
       }
+      else {
+         this.setState({
+            isNotRanked: true,
+         })
+      }
+   }
+
+   handleSuggest(e) {
+      this.setState({ 
+         cityName: '',
+         isNotRanked: false, 
+      })
    }
 
    render() {
@@ -33,12 +51,15 @@ class Landing extends Component {
                <p id="subtitle">See how queer friendly your city is.</p>
                <Geocoder
                inputClass='ac-box'
+               resultClass='search-result'
                resultsClass='search-results'
                accessToken={process.env.REACT_APP_MAPBOX_API}
                onSelect={this.handleSearhResult}
+               onSuggest={this.handleSuggest}
                inputPlaceholder='Search for city...'
                types='place'
                />
+               { this.state.isNotRanked ? <span className='no-ranking'>Sorry, {this.state.cityName} has not been ranked yet.</span> : '' }
             </div>
             <div className="ranking-container">
                <p id="subtitle">Rank a city using your current location.</p>

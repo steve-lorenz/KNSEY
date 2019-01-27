@@ -54,22 +54,29 @@ nav .brand-logo {
   outline: none;
 }
 
-.search-box  input, .search-results, .react-geocoder-item {
+.search-box  input, .react-geocoder-item {
   background-color: rgba(0, 0, 0, 0.6);
   color: #E3EBFF;
   font-size: 2em;
   padding: 5px;
 }
 
-.ac-box {
+.search-results {
   background-color: rgba(0, 0, 0, 0.6);
   color: #E3EBFF;
   font-size: 2em;
   padding: 0;
   margin: 0;
+  text-align: center;
 }
 
-.react-geocoder-item, .search-results li:hover {
+.search-result {
+  color: #E3EBFF;
+  padding: 0;
+  margin: 0;
+}
+
+.react-geocoder-item:hover, .search-result:hover {
   background-color: #E3EBFF;
   color: #1F2020;
   cursor: pointer;
@@ -180,6 +187,7 @@ nav .brand-logo {
 #subtitle {
   color: #E3EBFF;
   font-size: 2em;
+  padding: 10px 0;
 }
 
 .landing-jumbotron {
@@ -187,7 +195,7 @@ nav .brand-logo {
   flex-direction: column;
   justify-content: space-around;
   min-height: 100%;
-  width: 960px;
+  width: 60%;
   margin: 0 auto;
 }
 
@@ -211,30 +219,75 @@ nav .brand-logo {
   width: 100%;
 }
 
-@media (max-width: 915px) {
+.no-ranking {
+  font-size: 2em;
+  color: red;
+}
+
+@media (max-width: 1200 px) {
+  /* Desktops */
+}
+
+@media (max-width: 990px) {
+  /* Tablets */
   h1 {
-    font-size: 2em;
+    font-size: 2.8em;
   }
 
-  p {
-    font-size: 1em;
+  #subtitle {
+    font-size: 1.8em;
+    padding: 3% 0;
   }
 
-  .current-city {
-    font-size: 1.5em;
+  .landing-jumbotron {
+    width: 80%;
+  }
+
+  .landing-container {
+    background: none;
+  }
+
+  .search-box  input, .search-results, .react-geocoder-item {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #E3EBFF;
+    padding: 5px;
   }
 }
 
 @media (max-width: 475px) {
+  /* Mobile Devices */
   h1 {
+    font-size: 2.5em;
+  }
+
+  #subtitle {
+    font-size: 1.2em;
+    padding: 5% 0;
+  }
+
+  .landing-jumbotron {
+    width: 90%;
+    background-color: #1F2020;
+  }
+
+  .landing-container {
+    background: #1F2020;
+  }
+
+  .search-box  input, .search-results, .react-geocoder-item {
     font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #E3EBFF;
+    padding: 5px;
   }
+}
 
-  p {
-    font-size: 0.8em;
-  }
-
-  .current-city {
+@media (max-width: 375px) {
+  /* Tiny Mobile Devices */
+  .search-box  input, .search-results, .react-geocoder-item {
     font-size: 1.1em;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #E3EBFF;
+    padding: 5px;
   }
 }
