@@ -38,3 +38,31 @@ export async function getRankingById(cityId) {
    }
 };
 
+export async function getRankingByUser(cityId, userId) {
+   try {
+      const firestore = firebase.firestore();
+      const rankingsRef = firestore.collection('rankings');
+   
+      if(cityId) {
+         let rankSearch = await rankingsRef.where('cityId', '==', cityId).where('userId', '==', userId).get()
+         .then(snapshot => {
+            if(!snapshot.empty){
+               const userRating = snapshot.docs[0].data();
+               return userRating.starRating;
+            }
+      
+         })
+         .catch(err => {
+            console.log(err);
+         });
+         return rankSearch;
+      }
+      else {
+         return false
+      }
+   }
+   catch(err) {
+      console.log(err);
+   }
+};
+

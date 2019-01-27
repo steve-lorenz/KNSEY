@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
-import { createRanking, getUserRanking } from '../../store/actions/rankActions'
-import { createCity, getCity, setCity } from '../../store/actions/cityActions'
+import { createCity } from '../../store/actions/cityActions'
+import { createRanking } from '../../store/actions/rankActions'
+import { getCityByName } from '../../utils/City'
+import { getRankingByUser } from '../../utils/Ranking'
 import { bindActionCreators } from 'redux'
 import { ClipLoader } from 'react-spinners'
 import axios from 'axios'
@@ -16,105 +18,75 @@ class CreateRanking extends Component {
 
 		this.state = {
 			starRating: 0,
-			cityName: '',
 			state: '',
 			country: '',
-			loading: true
+			loading: true,
+			ranking: 0,
+			city: {},
 		}
 		this.onClickHandler = this.onClickHandler.bind(this);
 		this.goBack = this.goBack.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-
+		this.getPosition = this.getPosition.bind(this);
 	}
 
-	componentDidMount () {
-		const { city } = this.props;
-		if( city.cityId ){
-			this.props.getCity(city.cityName);
-			this.setState({
-				loading: false
-			})
-		}
-		this.renderRanking();
-	}
+	async componentDidMount() {
+		const { auth } = this.props;
+		const position = await this.main();
+		const currentCity = await this.getReverseGeoCode(position);
+		const cityDB = await getCityByName(currentCity[0]);
+		const ranking = await getRankingByUser(cityDB.cityId, auth.uid);
 
-	componentWillUnmount (){
-		this.props.getCity(' ');
-	}
-
-	componentDidUpdate(prevProps) {
-		if (this.props.city !== prevProps.city) {
-			const { city } = this.props;
-			this.setState({
-				cityName: city.cityName,
-				state: city.state,
-				country: city.country,
-				loading: false
-			})
-			this.props.getUserRanking(city.cityId);
-		}
-
-	}
-
-	geoSuccess = pos => {
-      const coords = pos.coords;
-		this.getReverseGeoCode(coords);
-		this.setState({ 
-			userLocation: true
-		})
-    }
-    
-	geoError = err => {
-		console.warn(`ERROR(${err.code}): ${err.message}`);
-	}
-
-	getReverseGeoCode = (coords) => {
-		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.longitude},${coords.latitude}.json?types=place&access_token=pk.eyJ1IjoiZHVja21vdXRoYmVhc3QiLCJhIjoiY2pvbjliNjJ0MHNsOTN4cm9qMngzemdnMSJ9.VswQoW3vwNt8WJzbBG0FFg`
-
-		axios.get(`${url}`)
-		.then(response =>  {
-	
-		if(response.statusText === 'OK'){
-         const city = response.data.features[0].place_name.split(',')
-         const cityName = city[0].trim()
-         const state = city[1].trim()
-         const country = city[2].trim()
-			this.setState({
+		if(currentCity) {
+			const cityName = currentCity[0].trim()
+			const state = currentCity[1].trim()
+			const country = currentCity[2].trim()
+			this.props.createCity({
 				cityName: cityName,
 				state: state,
 				country: country
-         })
-         this.props.createCity({
-            cityName: cityName,
-				state: state,
-				country: country
-         })
-         this.props.setCity({
-            cityName: cityName,
-				state: state,
-				country: country
-         })
-         this.props.getCity(cityName)
-         this.props.history.push('/create')
+			})
+			if(cityDB) {
+				this.setState({
+					state: state,
+					country: country,
+					loading: false,
+					city: cityDB,
+					ranking: ranking,
+				})
+			}
 		}
-		else {
-			return Promise.reject('Something went wrong!')
-		}
-	
-		})
-		.catch(error => {
-			console.log(error);
+	}
+
+  getPosition() {
+		return new Promise((res, rej) => {
+			 navigator.geolocation.getCurrentPosition(res, rej);
 		});
-   }
-   
-   renderRanking = () => {
-      const options = {
-         enableHighAccuracy: true,
-         timeout: 10000,
-         maximumAge: 0
-       };
-       
-      navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError, options);
+  }
+  
+  async main() {
+		var position = await this.getPosition();
+		return position.coords;
+  }
+
+	getReverseGeoCode(coords) {
+		const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.longitude},${coords.latitude}.json?types=place&access_token=pk.eyJ1IjoiZHVja21vdXRoYmVhc3QiLCJhIjoiY2pvbjliNjJ0MHNsOTN4cm9qMngzemdnMSJ9.VswQoW3vwNt8WJzbBG0FFg`
+		return new Promise( function(resolve) {
+			axios.get(`${url}`)
+			.then(response =>  {
+			if(response.statusText === 'OK'){
+				const city = response.data.features[0].place_name.split(',');
+				resolve(city);
+			}
+			else {
+				return Promise.reject('Something went wrong!');
+			}
+		
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		});
    }
    
    goBack() {
@@ -128,9 +100,9 @@ class CreateRanking extends Component {
 	}
 	
 	handleSubmit(e) {
-		const { city } = this.props;
+		const { city } = this.state;
 		e.preventDefault();
-		if(!city.cityId) {
+		if(!city) {
 			alert("Sorry, KNSEY can not rank a city without your location being shared.")
 		}
 		else if(!this.state.starRating) {
@@ -138,32 +110,32 @@ class CreateRanking extends Component {
 		}
 		else {
 			this.props.createRanking(this.state)
-			this.goBack()
+			this.props.history.push(`/${city.cityId}`);
 		}
    }
 
    render () {
-		const { auth, city, ranking } = this.props;
-		console.log("ranking stuff", city)
+		const { auth } = this.props;
+		const { state, country, ranking, city } = this.state;
       if(!auth.uid) return <Redirect to="/signin" />
 
       return (
 		<div className="container white-box-container">
-			{ city && ranking.average ?
+			{ city && ranking ?
 				<div className="white-box center">
 					<h1>You've already ranked <span className='current-city'>{city.cityName}</span></h1>
 					<StarRatings
-						rating={ranking.average}
+						rating={ranking}
 						starDimension="40px"
 						starRatedColor="#3B0075"
 						numberOfStars={7}
 					/>
-					<p><span className='rating'>Rating : {ranking.average}</span></p>
+					<p><span className='rating'>Rating : {ranking}</span></p>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
 					<Link to="/"><button className="btn find-btn center">Find a City</button></Link>
 				</div> 
 				: 
-				city ? 
+				state && country ? 
 				<div className="white-box center">
 					<h1>RANK YOUR CITY</h1>
 					<p className='question'>How gay friendly is <span className='current-city'>{city.cityName}</span> ?</p>
@@ -206,7 +178,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		...bindActionCreators({ createCity, createRanking, getUserRanking, getCity, setCity }, dispatch)
+		...bindActionCreators({ createCity, createRanking }, dispatch)
 	}
 }
 

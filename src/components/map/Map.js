@@ -143,7 +143,7 @@ class Map extends Component {
             <div style={{height: '100%'}}className="container center">
             <p>{ranking ? ranking.totalRankings : null}</p>
      
-               <button onClick={this.renderRanking} className="btn center rank-btn">Rank your city</button>
+               <Link to='/create'><button className="btn center rank-btn">Rank your city</button></Link>
                <Geocoder
                viewport={viewport}
                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}

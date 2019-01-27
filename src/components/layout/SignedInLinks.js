@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut } from '../../store/actions/authActions'
 
@@ -9,6 +9,7 @@ const SignedInLinks = (props) => {
       <ul className="right">
          <li ><NavLink to='/' className='btn btn-floating'>{props.profile.initials}</NavLink></li>
          <li ><button onClick={props.signOut} className='btn'>Logout</button></li>
+         <li ><Link to='/map' className='btn'>Map</Link></li>
       </ul>
    )
 
