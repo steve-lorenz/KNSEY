@@ -116,6 +116,10 @@ nav .brand-logo {
   margin: 12px 0;
 }
 
+.white-box span{
+  margin: 0;
+}
+
 .question {
   font-size: 2em;
 }
@@ -224,6 +228,11 @@ nav .brand-logo {
   color: red;
 }
 
+.icon {
+  height: 75px;
+  width: 75px;
+}
+
 @media (max-width: 1200 px) {
   /* Desktops */
 }
@@ -247,10 +256,19 @@ nav .brand-logo {
     background: none;
   }
 
+  .white-box {
+    padding: 60px 15px;
+  }
+
   .search-box  input, .search-results, .react-geocoder-item {
     background-color: rgba(0, 0, 0, 0.6);
     color: #E3EBFF;
     padding: 5px;
+  }
+
+  .icon {
+    height: 55px;
+    width: 55px;
   }
 }
 
@@ -258,6 +276,14 @@ nav .brand-logo {
   /* Mobile Devices */
   h1 {
     font-size: 2.5em;
+  }
+
+  .question {
+    font-size: 1.5em;
+  }
+
+  .white-box {
+    padding: 60px 15px;
   }
 
   #subtitle {
@@ -280,14 +306,44 @@ nav .brand-logo {
     color: #E3EBFF;
     padding: 5px;
   }
+
+  .icon {
+    height: 40px;
+    width: 40px;
+  }
+
+  p {
+    font-size: 1em;
+  }
 }
 
 @media (max-width: 375px) {
   /* Tiny Mobile Devices */
+  h1 {
+    font-size: 1.8em;
+  }
+
+  .question {
+    font-size: 1em;
+  }
+
+  .white-box {
+    padding: 60px 15px;
+  }
+
   .search-box  input, .search-results, .react-geocoder-item {
     font-size: 1.1em;
     background-color: rgba(0, 0, 0, 0.6);
     color: #E3EBFF;
     padding: 5px;
+  }
+
+  .icon {
+    height: 35px;
+    width: 35px;
+  }
+
+  p {
+    font-size: 0.8em;
   }
 }

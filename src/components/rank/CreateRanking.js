@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import StarRatings from 'react-star-ratings'
 import { createCity } from '../../store/actions/cityActions'
 import { createRanking } from '../../store/actions/rankActions'
 import { getCityByName } from '../../utils/City'
 import { getRankingByUser } from '../../utils/Ranking'
 import { bindActionCreators } from 'redux'
 import { ClipLoader } from 'react-spinners'
+import Rating from 'react-rating'
 import axios from 'axios'
 
 class CreateRanking extends Component {
@@ -23,6 +23,7 @@ class CreateRanking extends Component {
 			loading: true,
 			ranking: 0,
 			city: {},
+			test: 0,
 		}
 		this.onClickHandler = this.onClickHandler.bind(this);
 		this.goBack = this.goBack.bind(this);
@@ -93,10 +94,8 @@ class CreateRanking extends Component {
 		this.props.history.goBack();
    }
 
-   onClickHandler = rating =>  {
-		this.setState({
-			starRating: rating,
-		})
+   onClickHandler(rating) {
+		this.setState({ starRating: rating })
 	}
 	
 	handleSubmit(e) {
@@ -124,11 +123,25 @@ class CreateRanking extends Component {
 			{ city && ranking ?
 				<div className="white-box center">
 					<h1>You've already ranked <span className='current-city'>{city.cityName}</span></h1>
-					<StarRatings
-						rating={ranking}
-						starDimension="40px"
-						starRatedColor="#3B0075"
-						numberOfStars={7}
+					<Rating
+						stop={7}
+						readonly
+						initialRating={ranking}
+						className='ranking-icons'
+					   emptySymbol={[<img alt='rating 0 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_0.png")} className="icon" />, 
+										<img alt='rating 1 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_1.png")} className="icon" />, 
+										<img alt='rating 2 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_2.png")} className="icon" />, 
+										<img alt='rating 3 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_3.png")} className="icon" />, 
+										<img alt='rating 4 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_4.png")} className="icon" />,
+										<img alt='rating 5 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_5.png")} className="icon" />,
+										<img alt='rating 6 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_6.png")} className="icon" />]}
+						fullSymbol={[<img alt='rating 0' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_0.png")} className="icon" />, 
+										<img alt='rating 1' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_1.png")} className="icon" />, 
+										<img alt='rating 2' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_2.png")} className="icon" />, 
+										<img alt='rating 3' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_3.png")} className="icon" />, 
+										<img alt='rating 4' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_4.png")} className="icon" />,
+										<img alt='rating 5' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_5.png")} className="icon" />,
+										<img alt='rating 6' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_6.png")} className="icon" />]}
 					/>
 					<p><span className='rating'>Rating : {ranking}</span></p>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
@@ -139,13 +152,24 @@ class CreateRanking extends Component {
 				<div className="white-box center">
 					<h1>RANK YOUR CITY</h1>
 					<p className='question'>How gay friendly is <span className='current-city'>{city.cityName}</span> ?</p>
-					<StarRatings 
-					rating={this.state.starRating} 
-					changeRating={ this.onClickHandler }
-					starDimension="40px" 
-					numberOfStars={7} 
-					starRatedColor="#3B0075"
-					starHoverColor="#3B0075"
+					<Rating
+						stop={7}
+						onClick={ this.onClickHandler }
+						initialRating={this.state.starRating}
+					   emptySymbol={[<img alt='rating 0 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_0.png")} className="icon" />, 
+										<img alt='rating 1 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_1.png")} className="icon" />, 
+										<img alt='rating 2 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_2.png")} className="icon" />, 
+										<img alt='rating 3 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_3.png")} className="icon" />, 
+										<img alt='rating 4 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_4.png")} className="icon" />,
+										<img alt='rating 5 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_5.png")} className="icon" />,
+										<img alt='rating 6 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_6.png")} className="icon" />]}
+						fullSymbol={[<img alt='rating 0' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_0.png")} className="icon" />, 
+										<img alt='rating 1' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_1.png")} className="icon" />, 
+										<img alt='rating 2' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_2.png")} className="icon" />, 
+										<img alt='rating 3' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_3.png")} className="icon" />, 
+										<img alt='rating 4' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_4.png")} className="icon" />,
+										<img alt='rating 5' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_5.png")} className="icon" />,
+										<img alt='rating 6' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_6.png")} className="icon" />]}
 					/>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
 					<button className="btn" onClick={ this.handleSubmit }>Submit</button>
