@@ -7,6 +7,7 @@ import { getComments } from '../../store/actions/commentActions'
 import { bindActionCreators } from 'redux'
 import Geocoder from 'react-geocoder-mapbox'
 import { getCityByName } from '../../utils/City'
+import { getRankingById } from '../../utils/Ranking'
 
 class Landing extends Component {
 
@@ -26,7 +27,9 @@ class Landing extends Component {
       const cityName = result.text
       this.setState({ cityName: cityName })
       let cityResults = await getCityByName(cityName);
-      if(cityResults) {
+      let cityRanking = await getRankingById(cityResults.cityId);
+
+      if(cityResults && cityRanking) {
          this.props.history.push(`/${cityResults.cityId}`);
       }
       else {
