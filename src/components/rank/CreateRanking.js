@@ -143,7 +143,7 @@ class CreateRanking extends Component {
 										<img alt='rating 5' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_5.png")} className="icon" />,
 										<img alt='rating 6' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_6.png")} className="icon" />]}
 					/>
-					<p><span className='rating'>Rating : {ranking}</span></p>
+					<p><span className='rating'>Rating : {ranking - 1}</span></p>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
 					<Link to="/"><button className="btn find-btn center">Find a City</button></Link>
 				</div> 

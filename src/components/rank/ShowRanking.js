@@ -45,7 +45,7 @@ class ShowRanking extends Component {
       {city && ranking ? 
         <div className='center white-box'>
           <h1>{city.cityName} Ranking</h1>
-          <p className='city-ranking'>City Rating: {ranking.average}</p>
+          <p className='city-ranking'>City Rating: {ranking.average - 1}</p>
           <Rating
 						stop={7}
 						readonly
