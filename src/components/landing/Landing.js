@@ -16,11 +16,28 @@ class Landing extends Component {
       
       this.state = {
          isNotRanked: false,
+         isInputShowing: false,
          cityName: '',
       }
       
       this.handleSearhResult = this.handleSearhResult.bind(this);
       this.handleSuggest = this.handleSuggest.bind(this);
+   }
+
+   componentDidMount() {
+      const inputSearch = document.querySelector('.ac-box');
+
+      inputSearch.onfocus = () => {
+         this.setState({ 
+            isInputShowing: true, 
+         })
+      }
+
+      inputSearch.onfocusout = () => {
+         this.setState({ 
+            isInputShowing: false, 
+         })
+      }
    }
 
    async handleSearhResult(result){
@@ -35,6 +52,7 @@ class Landing extends Component {
       else {
          this.setState({
             isNotRanked: true,
+            isInputShowing: false, 
          })
       }
    }
@@ -42,7 +60,7 @@ class Landing extends Component {
    handleSuggest(e) {
       this.setState({ 
          cityName: '',
-         isNotRanked: false, 
+         isNotRanked: false,
       })
    }
 
@@ -59,15 +77,22 @@ class Landing extends Component {
                accessToken={process.env.REACT_APP_MAPBOX_API}
                onSelect={this.handleSearhResult}
                onSuggest={this.handleSuggest}
+               focusOnMount={false}
                inputPlaceholder='Search for city...'
                types='place'
+               ref="searchInput"
                />
                { this.state.isNotRanked ? <span className='no-ranking'>Sorry, {this.state.cityName} has not been ranked yet.</span> : '' }
             </div>
+            { !this.state.isInputShowing ?
             <div className="ranking-container">
                <p id="subtitle">Rank a city using your current location.</p>
                <Link to="/create"><button className="btn center"><i className="fas fa-location-arrow"></i></button></Link>
             </div>
+            :
+            ''
+            }
+
          </div>
       )
    }
@@ -87,5 +112,4 @@ const mapDispatchToProps = (dispatch) => {
       ...bindActionCreators({ getRanking, getCity, getComments, createCity, setCity}, dispatch)
    }
 } 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Landing)
