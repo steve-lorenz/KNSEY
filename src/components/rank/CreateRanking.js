@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { createCity } from '../../store/actions/cityActions'
-import { createRanking } from '../../store/actions/rankActions'
 import { getCityByName } from '../../utils/City'
-import { getRankingByUser } from '../../utils/Ranking'
-import { bindActionCreators } from 'redux'
+import { getRankingByUser, createUserRanking, createCityRanking } from '../../utils/Ranking'
 import { ClipLoader } from 'react-spinners'
 import Rating from 'react-rating'
 import axios from 'axios'
@@ -23,7 +20,6 @@ class CreateRanking extends Component {
 			loading: true,
 			ranking: 0,
 			city: {},
-			test: 0,
 		}
 		this.onClickHandler = this.onClickHandler.bind(this);
 		this.goBack = this.goBack.bind(this);
@@ -98,8 +94,9 @@ class CreateRanking extends Component {
 		this.setState({ starRating: rating })
 	}
 	
-	handleSubmit(e) {
+	async handleSubmit(e) {
 		const { city } = this.state;
+		const { auth, profile } = this.props;
 		e.preventDefault();
 		if(!city) {
 			alert("Sorry, KNSEY can not rank a city without your location being shared.")
@@ -108,8 +105,14 @@ class CreateRanking extends Component {
 			alert("You need to select a star rating, it can't be left blank")
 		}
 		else {
-			this.props.createRanking(this.state)
-			this.props.history.push(`/${city.cityId}`);
+			const userRanking = await createUserRanking(this.state, auth.uid, profile)
+			const cityRanking = await createCityRanking(this.state)
+			if(cityRanking === 200 && userRanking){
+				this.props.history.push(`/${city.cityId}`);
+			}
+			else{
+				alert("There was an error when trying to create your ranking, please try again.")
+			}
 		}
    }
 
@@ -196,13 +199,14 @@ const mapStateToProps = (state) => {
    return {
 		auth: state.firebase.auth,
 		city: state.city,
-		ranking: state.ranking
+		ranking: state.ranking,
+		profile: state.firebase.profile
    }
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		...bindActionCreators({ createCity, createRanking }, dispatch)
+		createCity: (city) => dispatch(createCity(city))
 	}
 }
 

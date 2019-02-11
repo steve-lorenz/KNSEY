@@ -5,6 +5,7 @@ export const createRanking = (ranking) => {
       const userId = getState().firebase.auth.uid;
       const citiesRef = firestore.collection('cities');
       const rankingsRef = firestore.collection('rankings');
+      
       citiesRef.where('cityName', '==', ranking.city.cityName).get()
       .then(snapshot => {
          if(!snapshot.empty) {
