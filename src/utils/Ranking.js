@@ -85,6 +85,33 @@ export async function createCityRanking(ranking) {
    }
 };
 
+export async function getAllRankings() {
+   try {
+      const firestore = firebase.firestore();
+      const citiesRef = firestore.collection('cities');
+      
+      let getAllRankings = await citiesRef.get()
+      .then((snapshot) => {
+         if(!snapshot.empty){
+            let cityRatings = [];
+            snapshot.forEach(doc => {
+               const rankings = doc.data()
+               rankings.cityId = doc.id
+               if(rankings.coords && rankings.average) cityRatings.push(rankings)
+            });
+            return cityRatings
+         }
+      })
+      .catch((err) => {
+         console.log(err)
+      });
+      return getAllRankings;
+   }
+   catch(err) {
+      console.log(err);
+   }
+};
+
 export async function getRankingById(cityId) {
    try {
       const firestore = firebase.firestore();

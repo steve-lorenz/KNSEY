@@ -38,10 +38,20 @@ class CreateRanking extends Component {
 			const cityName = currentCity[0].trim()
 			const state = currentCity[1].trim()
 			const country = currentCity[2].trim()
+			const latitudeDifference = 0.0161316
+			const longitudeDifference = 0.0110918
+			const latitude = (position.latitude - latitudeDifference)
+			const longitude = (position.longitude - longitudeDifference)
+			const coords = {
+				latitude: latitude,
+				longitude: longitude,
+			}
+
 			this.props.createCity({
 				cityName: cityName,
 				state: state,
-				country: country
+				country: country,
+				coords: coords
 			})
 			if(cityDB) {
 				this.setState({

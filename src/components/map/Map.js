@@ -5,6 +5,7 @@ import MapGL, { Marker, Popup } from 'react-map-gl';
 import { getCity, createCity, setCity } from '../../store/actions/cityActions'
 import { getRanking } from '../../store/actions/rankActions'
 import { getComments } from '../../store/actions/commentActions'
+import { getAllRankings } from '../../utils/Ranking'
 import Geocoder from 'react-mapbox-gl-geocoder'
 import { bindActionCreators } from 'redux'
 
@@ -29,13 +30,18 @@ class Map extends Component {
          showPopup: false,
          isMarkerShowing: false,
          isInputShowing: true,
+         rankings: [],
       };
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
       window.addEventListener('resize', this.resize)
       this.resize()
+      let rankings = await getAllRankings()
+      this.setState({
+         rankings: rankings
+      })
     }
    
     componentWillUnmount() {
@@ -82,6 +88,15 @@ class Map extends Component {
       this.props.getComments(city.cityId)
     }
 
+   //  renderCityPopUp = (ranking) => {
+   //     console.log("Ranking stuff", ranking)
+   //     this.setState({
+   //       popupInfo: ranking, 
+   //       showPopup: true,
+   //       isInputShowing: false
+   //    })
+   //  }
+
     renderCityMarker = () => {
       if(this.state.isMarkerShowing) {
          return (
@@ -98,7 +113,7 @@ class Map extends Component {
    render() {
 
       const { viewport, popupInfo } = this.state;
-      const { city, ranking } = this.props;
+      const { ranking, city } = this.props;
       const queryParams = {
          types: 'place'
       }
@@ -115,6 +130,21 @@ class Map extends Component {
             :
             null
             }
+
+            {/* {rankings.length > 0 ? 
+               rankings.map( ranking => {
+               return(
+                  <Marker 
+                     key={ranking.cityId}
+                     longitude={ranking.coords.longitude}
+                     latitude={ranking.coords.latitude} >
+                     <i onClick={() => this.renderCityPopUp(ranking)} className="fas fa-map-marker-alt fa-5x"></i>
+                  </Marker>  
+               )
+               })
+               :
+               ''
+            } */}
             
             {popupInfo && city.cityId ? 
             <Popup tipSize={7}
