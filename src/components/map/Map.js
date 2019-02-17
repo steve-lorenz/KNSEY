@@ -57,6 +57,7 @@ class Map extends Component {
     }
 
     handleViewportChange = viewport => {
+      console.log("Viewport", viewport)
       this.setState({
         viewport: { ...this.state.viewport, ...viewport }
       });
@@ -68,6 +69,13 @@ class Map extends Component {
 
       if(city){
          viewport.longitude = (viewport.longitude - 0.0394);
+         this.setState({
+            marker: {
+               latitude: viewport.latitude,
+               longitude: viewport.longitude
+            },
+            isMarkerShowing: true
+         })
          return this.handleViewportChange({
             ...viewport
          });
