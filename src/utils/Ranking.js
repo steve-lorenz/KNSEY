@@ -24,6 +24,9 @@ export async function createUserRanking(ranking, userId, profile) {
                   console.log (err);
                })
             }
+            else {
+               return false;
+            }
          })
          .catch(err => {
             console.log(err);

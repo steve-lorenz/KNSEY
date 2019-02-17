@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
-import { createCity } from '../../store/actions/cityActions'
-import { getCityByName } from '../../utils/City'
+// import { createCity } from '../../store/actions/cityActions'
+import { getCityByName, createCityAsync } from '../../utils/City'
 import { getRankingByUser, createUserRanking, createCityRanking } from '../../utils/Ranking'
 import { ClipLoader } from 'react-spinners'
 import Rating from 'react-rating'
@@ -31,28 +31,38 @@ class CreateRanking extends Component {
 		const { auth } = this.props;
 		const position = await this.main();
 		const currentCity = await this.getReverseGeoCode(position);
-		const cityDB = await getCityByName(currentCity[0]);
+		const cityDB = await getCityByName(currentCity.text);
 		const ranking = await getRankingByUser(cityDB.cityId, auth.uid);
 
 		if(currentCity) {
-			const cityName = currentCity[0].trim()
-			const state = currentCity[1].trim()
-			const country = currentCity[2].trim()
-			const latitudeDifference = 0.0161316
-			const longitudeDifference = 0.0110918
-			const latitude = (position.latitude - latitudeDifference)
-			const longitude = (position.longitude - longitudeDifference)
+			const city = currentCity.place_name.split(',')
+			const cityName = city[0].trim()
+			const state = city[1].trim()
+			const country = city[2].trim()
+			const longitude = currentCity.geometry.coordinates[0]
+			const latitude = currentCity.geometry.coordinates[1]
 			const coords = {
 				latitude: latitude,
 				longitude: longitude,
 			}
 
-			this.props.createCity({
+			
+			const createCity = await createCityAsync({
 				cityName: cityName,
 				state: state,
 				country: country,
 				coords: coords
-			})
+			});
+			
+			if(createCity) {
+				this.setState({
+					state: createCity.state,
+					country: createCity.country,
+					loading: false,
+					city: createCity,
+				})
+			}
+
 			if(cityDB) {
 				this.setState({
 					state: state,
@@ -82,7 +92,7 @@ class CreateRanking extends Component {
 			axios.get(`${url}`)
 			.then(response =>  {
 			if(response.statusText === 'OK'){
-				const city = response.data.features[0].place_name.split(',');
+				const city = response.data.features[0];
 				resolve(city);
 			}
 			else {
@@ -214,10 +224,4 @@ const mapStateToProps = (state) => {
    }
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		createCity: (city) => dispatch(createCity(city))
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateRanking)
+export default connect(mapStateToProps, null)(CreateRanking)

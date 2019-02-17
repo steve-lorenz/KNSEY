@@ -1,5 +1,39 @@
 import firebase from '../config/firebaseConfig'
 
+export async function createCityAsync(city) {
+   try {
+      const firestore = firebase.firestore();
+      const citiesRef = firestore.collection('cities');
+      if(city.cityName) {
+         let createCity = await citiesRef.where('cityName', '==', city.cityName).where('state', '==', city.state).get()
+         .then(snapshot => {
+            if(snapshot.empty) {
+               return firestore.collection('cities').add({
+                  ...city
+               })
+               .then((docRef) => {
+                  city["cityId"] = docRef.id
+                  return city;
+               })
+               .catch((err) => {
+                  console.log(err);
+               })
+            }
+            else{
+               return false;
+            }
+         })
+         .catch(err => {
+            console.log('Error getting documents', err);
+         });
+         return createCity;
+      }
+   }
+   catch(err) {
+      console.log(err);
+   }
+};
+
 export async function getCityByName(cityName) {
    try {
       const firestore = firebase.firestore();
