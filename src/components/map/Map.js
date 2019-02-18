@@ -121,6 +121,7 @@ class Map extends Component {
                      offsetTop={-100}
                   >
                   {ratingAverage === 0 ?
+<<<<<<< HEAD
                      <img alt='rating 0' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_0.png")} className="icon" />
                      :
                      ratingAverage === 1 ?
@@ -139,6 +140,26 @@ class Map extends Component {
                      <img alt='rating 5' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_5.png")} className="icon" />
                      :
                      <img alt='rating 6' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_6.png")} className="icon" />
+=======
+                     <img alt='rating 0' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_0.png")} className="map-icon" />
+                     :
+                     ratingAverage === 1 ?
+                     <img alt='rating 1' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_1.png")} className="map-icon" />
+                     :
+                     ratingAverage === 2 ?
+                     <img alt='rating 2' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_2.png")} className="map-icon" />
+                     :
+                     ratingAverage === 3 ?
+                     <img alt='rating 3' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_3.png")} className="map-icon" />
+                     :
+                     ratingAverage === 4 ?
+                     <img alt='rating 4' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_4.png")} className="map-icon" />
+                     :
+                     ratingAverage === 5 ?
+                     <img alt='rating 5' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_5.png")} className="map-icon" />
+                     :
+                     <img alt='rating 6' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_6.png")} className="map-icon" />
+>>>>>>> updated map markers(unicorns)
                   }
                   {/* <i onClick={() => this.renderPopUp(ranking)} className="fas fa-map-marker-alt fa-5x"></i> */}
                   </Marker>  
