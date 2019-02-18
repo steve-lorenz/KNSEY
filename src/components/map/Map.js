@@ -57,7 +57,6 @@ class Map extends Component {
     }
 
     handleViewportChange = viewport => {
-      console.log("Viewport", viewport)
       this.setState({
         viewport: { ...this.state.viewport, ...viewport }
       });
@@ -112,6 +111,7 @@ class Map extends Component {
 
             {rankings.length > 0 ? 
                rankings.map( ranking => {
+               let ratingAverage = (Math.round(ranking.average) - 1)
                return(
                   <Marker 
                      key={ranking.cityId}
@@ -120,7 +120,27 @@ class Map extends Component {
                      offsetLeft={-25} 
                      offsetTop={-100}
                   >
-                     <i onClick={() => this.renderPopUp(ranking)} className="fas fa-map-marker-alt fa-5x"></i>
+                  {ratingAverage === 0 ?
+                     <img alt='rating 0' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_0.png")} className="icon" />
+                     :
+                     ratingAverage === 1 ?
+                     <img alt='rating 1' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_1.png")} className="icon" />
+                     :
+                     ratingAverage === 2 ?
+                     <img alt='rating 2' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_2.png")} className="icon" />
+                     :
+                     ratingAverage === 3 ?
+                     <img alt='rating 3' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_3.png")} className="icon" />
+                     :
+                     ratingAverage === 4 ?
+                     <img alt='rating 4' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_4.png")} className="icon" />
+                     :
+                     ratingAverage === 5 ?
+                     <img alt='rating 5' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_5.png")} className="icon" />
+                     :
+                     <img alt='rating 6' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_6.png")} className="icon" />
+                  }
+                  {/* <i onClick={() => this.renderPopUp(ranking)} className="fas fa-map-marker-alt fa-5x"></i> */}
                   </Marker>  
                )
                })
@@ -139,7 +159,7 @@ class Map extends Component {
                onClose={() => this.setState({popupInfo: null, showPopup: false, isInputShowing: true})} 
             >
                <h4><Link to={`/${popupInfo.cityId}`}>{popupInfo.cityName}</ Link></h4>
-               <p>User Average: {popupInfo.average ? popupInfo.average : 0}</p>
+               <p>User Average: {popupInfo.average ? (popupInfo.average -1 ) : 0}</p>
                <p>Total User Rankings: {popupInfo.totalRanking ? popupInfo.totalRanking : 0}</p>
             </Popup>
             :
