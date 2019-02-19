@@ -68,6 +68,8 @@ class Map extends Component {
 
       if(city){
          viewport.longitude = (viewport.longitude - 0.0394);
+         viewport.width = '100%';
+         viewport.height = '100%';
          this.setState({
             marker: {
                latitude: viewport.latitude,
