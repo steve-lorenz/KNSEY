@@ -93,7 +93,6 @@ class Map extends Component {
     }
 
    render() {
-
       const { viewport, popupInfo, rankings } = this.state;
       const { ranking, city } = this.props;
       const queryParams = {
@@ -106,7 +105,8 @@ class Map extends Component {
                {...viewport}
                onViewportChange={this.handleViewportChange}
                mapStyle="mapbox://styles/mapbox/dark-v9"
-               mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
+               mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}  
+               surfaceView={true}
             >
 
             {rankings.length > 0 ? 
