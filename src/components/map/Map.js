@@ -21,7 +21,7 @@ class Map extends Component {
             height: '100%',
             latitude: 37.7577,
             longitude: -122.4376,
-            zoom: 11
+            zoom: 6
          },
          marker : {
             latitude: 37.7577,
@@ -120,7 +120,7 @@ class Map extends Component {
                      longitude={ranking.coords.longitude}
                      latitude={ranking.coords.latitude} 
                      offsetLeft={-25} 
-                     offsetTop={-100}
+                     offsetTop={-75}
                   >
                   {ratingAverage === 0 ?
                      <img alt='rating 0' onClick={() => this.renderPopUp(ranking)} src={require("../../assets/images/unicorn_0.png")} className="map-icon" />
@@ -157,7 +157,7 @@ class Map extends Component {
                longitude={popupInfo.coords.longitude}
                latitude={popupInfo.coords.latitude}
                offsetLeft={-25} 
-               offsetTop={-100}
+               offsetTop={-75}
                onClose={() => this.setState({popupInfo: null, showPopup: false, isInputShowing: true})} 
             >
                <h4><Link to={`/${popupInfo.cityId}`}>{popupInfo.cityName}</ Link></h4>
@@ -171,7 +171,7 @@ class Map extends Component {
                longitude={this.state.marker.longitude}
                latitude={this.state.marker.latitude}
                offsetLeft={-25} 
-               offsetTop={-100}
+               offsetTop={-75}
                onClose={() => this.setState({popupInfo: null, showPopup: false, isInputShowing: true})} 
             >
                <h4>No City Ranking Yet.</h4>
