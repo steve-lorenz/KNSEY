@@ -29,10 +29,18 @@ class CreateRanking extends Component {
 
 	async componentDidMount() {
 		const { auth } = this.props;
-		const position = await this.main();
-		const currentCity = await this.getReverseGeoCode(position);
-		const cityDB = await getCityByName(currentCity.text);
-		const ranking = await getRankingByUser(cityDB.cityId, auth.uid);
+		var position = null;
+		var currentCity = null;
+		var ranking = null;
+		var cityDB = null;
+		try {
+			position = await this.main();
+			currentCity = await this.getReverseGeoCode(position);
+			cityDB = await getCityByName(currentCity.text);
+			ranking = await getRankingByUser(cityDB.cityId, auth.uid);
+		} catch (e) {
+			console.log(e);
+		}
 
 		if(currentCity) {
 			const city = currentCity.place_name.split(',')
@@ -82,8 +90,8 @@ class CreateRanking extends Component {
   }
   
   async main() {
-		var position = await this.getPosition();
-		return position.coords;
+	var position = await this.getPosition();
+	return position.coords;
   }
 
 	getReverseGeoCode(coords) {
