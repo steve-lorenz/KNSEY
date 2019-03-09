@@ -151,20 +151,20 @@ class CreateRanking extends Component {
 						readonly
 						initialRating={ranking}
 						className='ranking-icons'
-					   emptySymbol={[<img alt='rating 0 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_0.png")} className="icon" />, 
-										<img alt='rating 1 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_1.png")} className="icon" />, 
-										<img alt='rating 2 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_2.png")} className="icon" />, 
-										<img alt='rating 3 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_3.png")} className="icon" />, 
-										<img alt='rating 4 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_4.png")} className="icon" />,
-										<img alt='rating 5 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_5.png")} className="icon" />,
-										<img alt='rating 6 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_6.png")} className="icon" />]}
-						fullSymbol={[<img alt='rating 0' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_0.png")} className="icon" />, 
-										<img alt='rating 1' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_1.png")} className="icon" />, 
-										<img alt='rating 2' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_2.png")} className="icon" />, 
-										<img alt='rating 3' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_3.png")} className="icon" />, 
-										<img alt='rating 4' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_4.png")} className="icon" />,
-										<img alt='rating 5' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_5.png")} className="icon" />,
-										<img alt='rating 6' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_6.png")} className="icon" />]}
+					   emptySymbol={[<img alt='rating 0 empty' src={require("../../assets/images/unicorn_emp_0.png")} className="icon" />, 
+										<img alt='rating 1 empty' src={require("../../assets/images/unicorn_emp_1.png")} className="icon" />, 
+										<img alt='rating 2 empty' src={require("../../assets/images/unicorn_emp_2.png")} className="icon" />, 
+										<img alt='rating 3 empty' src={require("../../assets/images/unicorn_emp_3.png")} className="icon" />, 
+										<img alt='rating 4 empty' src={require("../../assets/images/unicorn_emp_4.png")} className="icon" />,
+										<img alt='rating 5 empty' src={require("../../assets/images/unicorn_emp_5.png")} className="icon" />,
+										<img alt='rating 6 empty' src={require("../../assets/images/unicorn_emp_6.png")} className="icon" />]}
+						fullSymbol={[<img alt='rating 0' src={require("../../assets/images/unicorn_0.png")} className="icon" />, 
+										<img alt='rating 1' src={require("../../assets/images/unicorn_1.png")} className="icon" />, 
+										<img alt='rating 2' src={require("../../assets/images/unicorn_2.png")} className="icon" />, 
+										<img alt='rating 3' src={require("../../assets/images/unicorn_3.png")} className="icon" />, 
+										<img alt='rating 4' src={require("../../assets/images/unicorn_4.png")} className="icon" />,
+										<img alt='rating 5' src={require("../../assets/images/unicorn_5.png")} className="icon" />,
+										<img alt='rating 6' src={require("../../assets/images/unicorn_6.png")} className="icon" />]}
 					/>
 					<p><span className='rating'>Rating : {ranking - 1}</span></p>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
@@ -179,20 +179,20 @@ class CreateRanking extends Component {
 						stop={7}
 						onClick={ this.onClickHandler }
 						initialRating={this.state.starRating}
-					   emptySymbol={[<img alt='rating 0 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_0.png")} className="icon" />, 
-										<img alt='rating 1 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_1.png")} className="icon" />, 
-										<img alt='rating 2 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_2.png")} className="icon" />, 
-										<img alt='rating 3 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_3.png")} className="icon" />, 
-										<img alt='rating 4 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_4.png")} className="icon" />,
-										<img alt='rating 5 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_5.png")} className="icon" />,
-										<img alt='rating 6 empty' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_emp_6.png")} className="icon" />]}
-						fullSymbol={[<img alt='rating 0' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_0.png")} className="icon" />, 
-										<img alt='rating 1' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_1.png")} className="icon" />, 
-										<img alt='rating 2' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_2.png")} className="icon" />, 
-										<img alt='rating 3' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_3.png")} className="icon" />, 
-										<img alt='rating 4' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_4.png")} className="icon" />,
-										<img alt='rating 5' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_5.png")} className="icon" />,
-										<img alt='rating 6' src={require("/home/duckmouthbeast/Documents/KNSEY/src/assets/images/unicorn_6.png")} className="icon" />]}
+					   emptySymbol={[<img alt='rating 0 empty' src={require("../../assets/images/unicorn_emp_0.png")} className="icon" />, 
+										<img alt='rating 1 empty' src={require("../../assets/images/unicorn_emp_1.png")} className="icon" />, 
+										<img alt='rating 2 empty' src={require("../../assets/images/unicorn_emp_2.png")} className="icon" />, 
+										<img alt='rating 3 empty' src={require("../../assets/images/unicorn_emp_3.png")} className="icon" />, 
+										<img alt='rating 4 empty' src={require("../../assets/images/unicorn_emp_4.png")} className="icon" />,
+										<img alt='rating 5 empty' src={require("../../assets/images/unicorn_emp_5.png")} className="icon" />,
+										<img alt='rating 6 empty' src={require("../../assets/images/unicorn_emp_6.png")} className="icon" />]}
+						fullSymbol={[<img alt='rating 0' src={require("../../assets/images/unicorn_0.png")} className="icon" />, 
+										<img alt='rating 1' src={require("../../assets/images/unicorn_1.png")} className="icon" />, 
+										<img alt='rating 2' src={require("../../assets/images/unicorn_2.png")} className="icon" />, 
+										<img alt='rating 3' src={require("../../assets/images/unicorn_3.png")} className="icon" />, 
+										<img alt='rating 4' src={require("../../assets/images/unicorn_4.png")} className="icon" />,
+										<img alt='rating 5' src={require("../../assets/images/unicorn_5.png")} className="icon" />,
+										<img alt='rating 6' src={require("../../assets/images/unicorn_6.png")} className="icon" />]}
 					/>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
 					<button className="btn" onClick={ this.handleSubmit }>Submit</button>
