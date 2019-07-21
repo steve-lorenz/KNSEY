@@ -11,7 +11,7 @@ const CustomNavbar = (props) => {
 
    return (
       <Navbar>
-         <Link to='/' className="brand-logo">KNSEY</Link>
+         <Link to='/' className="brand-logo" aria-label="Home">KNSEY</Link>
          { links }
       </Navbar>
    )

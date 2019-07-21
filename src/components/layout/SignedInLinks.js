@@ -8,7 +8,7 @@ const SignedInLinks = (props) => {
    return (
       <ul className="right">
          <li ><NavLink to='/' className='btn btn-floating'>{props.profile.initials}</NavLink></li>
-         <li ><button onClick={props.signOut} className='btn'>Logout</button></li>
+         <li ><button aria-label="Logout" onClick={props.signOut} className='btn'>Logout</button></li>
          <li ><Link to='/map' className='btn'>Map</Link></li>
       </ul>
    )
