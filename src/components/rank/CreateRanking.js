@@ -176,7 +176,7 @@ class CreateRanking extends Component {
 					/>
 					<p><span className='rating'>Rating : {ranking - 1}</span></p>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
-					<Link to="/"><button className="btn find-btn center">Find a City</button></Link>
+					<Link to="/"><button aria-label="Find a City" className="btn find-btn center">Find a City</button></Link>
 				</div> 
 				: 
 				state && country ? 
@@ -203,7 +203,7 @@ class CreateRanking extends Component {
 										<img alt='rating 6' src={require("../../assets/images/unicorn_6.png")} className="icon" />]}
 					/>
 					<p> 0. Unfriendly - 6. Very Friendly</p>
-					<button className="btn" onClick={ this.handleSubmit }>Submit</button>
+					<button aria-label="Submit" className="btn" onClick={ this.handleSubmit }>Submit</button>
 				</div>
 				:
 				<div className='MoonLoader center'>

@@ -67,7 +67,7 @@ class ShowRanking extends Component {
 										<img alt='rating 6' src={require("../../assets/images/unicorn_6.png")} className="icon" />]}
 					/>
           <p style={{fontSize: '2em'}}>Total Ratings: {ranking.userRanking}</p>
-          <Link to="/"><button className="btn find-btn center">Find a City</button></Link>
+          <Link to="/"><button aria-label="Find a City" className="btn find-btn center">Find a City</button></Link>
           <Comment 
             cityStuff={city}
           />

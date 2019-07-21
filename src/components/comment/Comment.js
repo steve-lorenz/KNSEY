@@ -78,7 +78,7 @@ class Comment extends Component {
                <label htmlFor="content">Add a comment...</label>
             </div>
             <div className="input-field">
-               <button className="btn">{this.state.isEditing ? 'Update' : 'Post'}</button>
+               <button aria-label="Update" className="btn">{this.state.isEditing ? 'Update' : 'Post'}</button>
             </div>
          </form>
         : 
@@ -99,8 +99,8 @@ class Comment extends Component {
                      ?
                         !this.state.isEditing ?
                            <div>
-                              <button className='btn warning' onClick={() => this.handleEdit(comment.id)}>Edit</button>
-                              <button className='btn danger' onClick={() => this.handleDelete(comment.id)}>Delete</button>
+                              <button aria-label="Edit" className='btn warning' onClick={() => this.handleEdit(comment.id)}>Edit</button>
+                              <button aria-label="Delete" className='btn danger' onClick={() => this.handleDelete(comment.id)}>Delete</button>
                            </div>
                         : null
                      : null

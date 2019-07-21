@@ -69,7 +69,7 @@ class Landing extends Component {
          <div className="landing-container">
             <div className="landing-jumbotron">
                <h1 id="landing-title">KNSEY</h1>
-               <p id="subtitle">See how queer friendly your city is.</p>
+               <p class="subtitle">See how queer friendly your city is.</p>
                <Geocoder
                inputClass='ac-box'
                resultClass='search-result'
@@ -86,8 +86,8 @@ class Landing extends Component {
             </div>
             { !this.state.isInputShowing ?
             <div className="ranking-container">
-               <p id="subtitle">Rank a city using your current location.</p>
-               <Link to="/create"><button className="btn center"><i className="fas fa-location-arrow"></i></button></Link>
+               <p class="subtitle">Rank a city using your current location.</p>
+               <Link to="/create"><button aria-label="Create ranking" className="btn center"><i className="fas fa-location-arrow"></i></button></Link>
             </div>
             :
             ''

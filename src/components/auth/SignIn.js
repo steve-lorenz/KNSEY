@@ -39,7 +39,7 @@ class SignIn extends Component {
                <input type="password" id="password" onChange={this.handleChange}/>
             </div>
             <div className="input-field">
-               <button className="btn">Login</button>
+               <button aria-label="Login" className="btn">Login</button>
                <div className="red-text center">
                 { authError ? <p>{authError}</p> : null }
                </div>
