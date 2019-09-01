@@ -1,11 +1,6 @@
 version: 2
 jobs:
   build:
-    branches:
-      only:
-        - master
-      ignore:
-        - develop
     docker:
       - image: 'circleci/node:10'
     working_directory: ~/repo
@@ -22,9 +17,11 @@ jobs:
             - node_modules
           key: 'v1-dependencies-{{ checksum "package.json" }}'
       - run:
+          name: 'Test Project'
+          command: 'npm run test'
+      - run:
           name: 'Build Project'
           command: 'npm run build'
       - run:
           name: 'Deploy to Firebase Hosting'
           command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
-          
