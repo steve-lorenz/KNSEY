@@ -42,13 +42,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "babel-jest": "^25.0.0",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
     "firebase-tools": "^7.3.0",
-    "jest": "^25.0.0",
     "redux-mock-store": "^1.5.3"
   }
 }
