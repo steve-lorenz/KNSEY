@@ -6,4 +6,3 @@ yarn.lock
 .env
 .firebase/
 .firebaserc
-firebase.json
