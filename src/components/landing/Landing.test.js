@@ -25,3 +25,16 @@ test('should render with redux defaults', () => {
    );
    expect(container.firstChild).toHaveClass('landing-container');
 });
+
+test('should have class of landing-container', () => {
+   const {container} = render(
+   <Provider store={store}>
+      <BrowserRouter>
+         <Switch>
+            <Route exact path='/' component={Landing} />
+         </Switch>
+      </BrowserRouter>
+   </Provider>
+   );
+   expect(container.firstChild).not.toHaveClass('landing-container');
+});
