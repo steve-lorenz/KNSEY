@@ -31,7 +31,9 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "build:testConfig": "cypress-firebase createTestEnvFile",
+    "cy:run": "npm run build:testConfig && cypress run",
     "test": "npm run build:testConfig && cypress run",
+    "test:ci": "start-server-and-test start http://localhost:3000 cy:run",
     "test:open": "npm run build:testConfig && cypress open",
     "test:stage": "npm run test -- --env envName=stage",
     "test:open:stage": "npm run test:open -- --env envName=stage"
@@ -56,6 +58,7 @@
     "enzyme-to-json": "^3.3.4",
     "eslint-plugin-cypress": "^2.7.0",
     "firebase-tools": "^7.3.0",
-    "redux-mock-store": "^1.5.3"
+    "redux-mock-store": "^1.5.3",
+    "start-server-and-test": "^1.10.6"
   }
 }
