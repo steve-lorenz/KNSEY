@@ -19,7 +19,7 @@ jobs:
       - run:
           name: 'Build Project'
           command: 'npm run build'
-      -run:
+      - run:
           name: 'Start Project'
           command: 'npm run start'
       - run:
