@@ -5,3 +5,8 @@ yarn.lock
 *.log
 .env
 .firebase/
+serviceAccount.json
+cypress/config.json
+cypress.env.json
+cypress/videos
+cypress/screenshots

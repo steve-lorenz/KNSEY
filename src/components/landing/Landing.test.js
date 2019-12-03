@@ -1,27 +1,34 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { render, cleanup } from '@testing-library/react'
+import rootReducer from '../../store/reducers/rootReducer'
 import Landing from './Landing'
-import reducer from '../../store/reducers/rootReducer'
+import '@testing-library/jest-dom/extend-expect'
 
 afterEach(cleanup);
 
-const store = createStore(reducer, {
-});
+
+function renderWithRedux(
+   ui,
+   { initialState, store = createStore(rootReducer, initialState) } = {}
+ ) {
+   return {
+     ...render(<Provider store={store}>{ui}</Provider>),
+     store,
+   }
+ }
 
 
-test('should render with redux defaults', () => {
-   const {container} = render(
-   <Provider store={store}>
+test('should render KNSEY header and subtitle', () => {
+   const { getByText } = renderWithRedux(
       <BrowserRouter>
          <Switch>
             <Route exact path='/' component={Landing} />
          </Switch>
       </BrowserRouter>
-   </Provider>
    );
-   expect(container.firstChild).toHaveClass('landing-container');
+   expect(getByText('KNSEY')).toBeVisible();
+   expect(getByText('Rank a city using your current location.')).toBeVisible();
 });
