@@ -19,6 +19,9 @@ jobs:
       - run:
           name: 'Build Project'
           command: 'npm run build'
+      -run:
+          name: 'Start Project'
+          command: 'npm run start'
       - run:
           name: 'Test Project'
           command: 'npm run test'
