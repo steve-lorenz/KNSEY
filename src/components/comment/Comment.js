@@ -74,11 +74,11 @@ class Comment extends Component {
         {auth.uid ? 
          <form onSubmit={this.state.isEditing ? this.handleUpdate : this.handleSubmit}>
             <div className="input-field">
-               <textarea name="content" id="content" onChange={this.handleChange} value={this.state.content} rows="4" cols="50"></textarea>
+               <textarea name="content" data-test="comment-content" id="content" onChange={this.handleChange} value={this.state.content} rows="4" cols="50"></textarea>
                <label htmlFor="content">Add a comment...</label>
             </div>
             <div className="input-field">
-               <button aria-label="Update" className="btn">{this.state.isEditing ? 'Update' : 'Post'}</button>
+               <button aria-label="Update" data-test="comment-btn" className="btn">{this.state.isEditing ? 'Update' : 'Post'}</button>
             </div>
          </form>
         : 
@@ -89,7 +89,7 @@ class Comment extends Component {
                comment.comments.map(comment => {
                   return(
                   <ul key={comment.id} className="collection">
-                     <li className='collection-item'>{comment.content}</li>
+                     <li className='collection-item' data-test="comment-collection-item">{comment.content}</li>
                      <li className='collection-item'>
                      Posted by: {comment.userFirstName} {comment.userLastName[0]}
                      <span>{comment.updatedAt ? `Updated: ${moment(new Date(comment.updatedAt.seconds*1000)).calendar()}` : 
@@ -99,8 +99,8 @@ class Comment extends Component {
                      ?
                         !this.state.isEditing ?
                            <div>
-                              <button aria-label="Edit" className='btn warning' onClick={() => this.handleEdit(comment.id)}>Edit</button>
-                              <button aria-label="Delete" className='btn danger' onClick={() => this.handleDelete(comment.id)}>Delete</button>
+                              <button aria-label="Edit" data-test="comment-edit-btn" className='btn warning' onClick={() => this.handleEdit(comment.id)}>Edit</button>
+                              <button aria-label="Delete" data-test="comment-delete-btn" className='btn danger' onClick={() => this.handleDelete(comment.id)}>Delete</button>
                            </div>
                         : null
                      : null
