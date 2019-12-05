@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Rating from 'react-rating';
-import { ClipLoader } from 'react-spinners'
-import { setCity } from '../../store/actions/cityActions'
-import Comment from '../comment/Comment'
-import { getCityById } from '../../utils/City'
-import { getRankingById } from '../../utils/Ranking'
+import { ClipLoader } from 'react-spinners';
+import { setCity } from '../../store/actions/cityActions';
+import Comment from '../comment/Comment';
+import { getCityById } from '../../utils/City';
+import { getRankingById } from '../../utils/Ranking';
 
 class ShowRanking extends Component {
   constructor(props) {
@@ -21,7 +21,6 @@ class ShowRanking extends Component {
   }
 
   componentWillMount() {
-    console.log('rankings', this.props);
     const cityURL = this.props.match.params;
     this.findCity(cityURL.id);
   }
@@ -43,8 +42,9 @@ class ShowRanking extends Component {
     const { city, ranking } = this.state;
     return (
       <div className="container">
-        {city && ranking 
-        ? <div className="center white-box">
+        {city && ranking
+          ? (
+<div className="center white-box">
           <h1>
 {city.cityName}
 {' '}
@@ -85,7 +85,9 @@ Total Ratings:
             cityStuff={city}
           />
         </div>
-        :        <div className="center white-box">
+)
+          : (
+<div className="center white-box">
           <ClipLoader
             className="spinner"
             sizeUnit="px"
@@ -93,20 +95,21 @@ Total Ratings:
             color="#3B0075"
             loading={this.state.loading}
           />
-        </div>}
+        </div>
+)}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-     auth: state.firebase.auth,
-     city: state.city,
-     ranking: state.ranking
-  });
+  auth: state.firebase.auth,
+  city: state.city,
+  ranking: state.ranking,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-    setCity: (city) => dispatch(setCity(city))
- });
+  setCity: (city) => dispatch(setCity(city)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowRanking);

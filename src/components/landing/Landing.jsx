@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,7 +10,7 @@ import { getComments } from '../../store/actions/commentActions';
 import { getCityByName } from '../../utils/City';
 import { getRankingById } from '../../utils/Ranking';
 
-const Landing = (props) => {
+const Landing = ({ history }) => {
   const [isNotRanked, setIsNotRanked] = useState(false);
   const [isInputShowing, setIsInputShowing] = useState(false);
   const [cityName, setCityName] = useState();
@@ -33,7 +34,7 @@ const Landing = (props) => {
     const cityRanking = await getRankingById(cityResults.cityId);
 
     if (cityResults && cityRanking) {
-      props.history.push(`/${cityResults.cityId}`);
+      history.push(`/${cityResults.cityId}`);
     } else {
       setIsNotRanked(true);
       setIsInputShowing(false);
@@ -63,11 +64,11 @@ const Landing = (props) => {
         />
         { isNotRanked ? (
           <span className="no-ranking">
-Sorry,
+          Sorry,
             {' '}
             {cityName}
             {' '}
-has not been ranked yet.
+          has not been ranked yet.
           </span>
         ) : '' }
       </div>
@@ -82,6 +83,12 @@ has not been ranked yet.
 
     </div>
   );
+};
+
+Landing.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
