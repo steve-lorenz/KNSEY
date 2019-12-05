@@ -102,4 +102,5 @@ const mapDispatchToProps = (dispatch) => ({
     getRanking, getCity, getComments, createCity, setCity,
   }, dispatch),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
