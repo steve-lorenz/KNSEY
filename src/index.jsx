@@ -31,7 +31,6 @@ const store = createStore(persistedReducer,
 const persistor = persistStore(store);
 
 store.firebaseAuthIsReady.then(() => {
-  // eslint-disable-next-line react/jsx-filename-extension
   ReactDOM.render(<Provider store={store}><PersistGate loading={null} persistor={persistor}><App /></PersistGate></Provider>, document.getElementById('root'));
 });
 
