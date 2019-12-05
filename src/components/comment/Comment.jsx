@@ -24,7 +24,7 @@ const Comment = ({
 
   useEffect(() => {
     getCommentsAction(cityStuff.cityId);
-  }, []);
+  }, [getCommentsAction, cityStuff.cityId]);
 
   useEffect(() => {
     if (comment.editComment) {
