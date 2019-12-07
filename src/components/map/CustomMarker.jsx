@@ -18,7 +18,7 @@ const CustomMarker = ({ rankings, renderPopUp }) => (
         offsetLeft={-25}
         offsetTop={-75}
       >
-        <button style={btnStyle} onClick={() => renderPopUp(ranking)} type="button"><img alt={`rating ${ratingAverage}`} src={require(`../../assets/images/unicorn_${String(ratingAverage)}.png`)} className="map-icon" /></button>
+        <button data-test="ranking-btn" style={btnStyle} onClick={() => renderPopUp(ranking)} type="button"><img alt={`rating ${ratingAverage}`} src={require(`../../assets/images/unicorn_${String(ratingAverage)}.png`)} className="map-icon" /></button>
       </Marker>
     );
   })

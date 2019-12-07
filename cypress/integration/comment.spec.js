@@ -24,7 +24,7 @@ const mockComment = {
   userLastName: 'testy',
 };
 
-describe('Project Detail Page', () => {
+describe('Comment', () => {
   beforeEach(() => {
     cy.login();
     cy.callFirestore('set', `cities/${MOCK_CITY_ID}`, mockCity);

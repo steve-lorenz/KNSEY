@@ -68,9 +68,9 @@ const Map = ({ ranking, city }) => {
 
   const handleSearhResult = async (viewport, result) => {
     const cityName = result.text;
-    const city = await getCityByName(cityName);
+    const cityResult = await getCityByName(cityName);
 
-    if (city) {
+    if (cityResult) {
       return handleViewportChange({
         ...viewport,
       });
@@ -79,8 +79,8 @@ const Map = ({ ranking, city }) => {
     return alert(`Sorry,${cityName} hasn't been ranked yet.`);
   };
 
-  const renderPopUp = (ranking) => {
-    setPopupInfo(ranking);
+  const renderPopUp = (currentRanking) => {
+    setPopupInfo(currentRanking);
     setIsInputShowing(false);
   };
 
