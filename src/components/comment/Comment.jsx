@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,6 +21,7 @@ const Comment = ({
   const [content, setContent] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [editCommentState, setEditCommentState] = useState('');
+  const commentInput = useRef(null);
 
   useEffect(() => {
     getCommentsAction(cityStuff.cityId);
@@ -60,6 +61,7 @@ const Comment = ({
   };
 
   const handleEdit = (commentId) => {
+    commentInput.current.focus();
     editCommentAction(commentId);
   };
 
@@ -75,7 +77,7 @@ const Comment = ({
           <form onSubmit={isEditing ? handleUpdate : handleSubmit}>
             <label htmlFor="content">
                 Add a comment...
-              <textarea name="content" data-test="comment-content" id="content" onChange={(e) => handleChange(setContent, e)} value={content} rows="4" cols="50" />
+              <textarea ref={commentInput} name="content" data-test="comment-content" id="content" onChange={(e) => handleChange(setContent, e)} value={content} rows="4" cols="50" />
             </label>
             <button type="submit" aria-label="Update" data-test="comment-btn" className="btn">{isEditing ? 'Update' : 'Post'}</button>
           </form>
