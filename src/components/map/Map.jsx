@@ -132,9 +132,6 @@ Map.propTypes = {
   ranking: PropTypes.shape({
     totalRankings: PropTypes.number,
   }),
-  // profile: PropTypes.shape({
-  //   role: PropTypes.number,
-  // }).isRequired,
   city: PropTypes.shape({
     cityId: PropTypes.string,
   }),
