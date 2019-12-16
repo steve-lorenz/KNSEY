@@ -16,11 +16,11 @@ jobs:
             - node_modules
           key: 'v1-dependencies-{{ checksum "package.json" }}'
       - run:
-          name: 'Build Project'
-          command: 'npm run build'
-      - run:
           name: 'Test Project'
           command: 'npm run test:ci'
+      - run:
+          name: 'Build Project'
+          command: 'npm run build'
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
