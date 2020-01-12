@@ -49,9 +49,9 @@ describe('Comment', () => {
     cy.get(createSelector('comment-btn')).click();
     cy.get(createSelector('comment-collection-item')).contains('Test comment');
     cy.get(createSelector('comment-edit-btn')).click();
-    cy.get(createSelector('comment-content')).clear().type(' update');
-    cy.get(createSelector('comment-btn')).click();
-    cy.get(createSelector('comment-collection-item')).contains('Test comment update');
+    cy.get(createSelector('comment-content')).clear().type('updated');
+    cy.get(createSelector('comment-btn')).contains('Update').click();
+    cy.get(createSelector('comment-collection-item')).contains('Test comment updated');
     // Cleanup comment
     cy.get(createSelector('comment-delete-btn')).click();
   });
