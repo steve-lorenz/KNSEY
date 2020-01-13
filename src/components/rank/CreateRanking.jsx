@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -24,10 +24,13 @@ const CreateRanking = ({ auth, history, profile }) => {
     navigator.geolocation.getCurrentPosition(res, rej);
   });
 
-  const main = async () => {
-    const position = await getPosition();
-    return position.coords;
-  };
+  const main = useCallback(
+    async () => {
+      const position = await getPosition();
+      return position.coords;
+    },
+    [],
+  );
 
   const getReverseGeoCode = (coords) => {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.longitude},${coords.latitude}.json?types=place&access_token=pk.eyJ1IjoiZHVja21vdXRoYmVhc3QiLCJhIjoiY2pvbjliNjJ0MHNsOTN4cm9qMngzemdnMSJ9.VswQoW3vwNt8WJzbBG0FFg`;
@@ -45,6 +48,34 @@ const CreateRanking = ({ auth, history, profile }) => {
         });
     }));
   };
+
+  const createCity = useCallback(
+    async () => {
+      const newCity = await createCityAsync({
+        cityName,
+        state,
+        country,
+        coords,
+      });
+      setState(newCity.state);
+      setCountry(newCity.country);
+      setLoading(false);
+      setCity(newCity);
+    },
+    [cityName, coords, country, state],
+  );
+
+  const existingCity = useCallback(
+    (cityDB, currentRanking) => {
+      setState(state);
+      setCountry(country);
+      setLoading(false);
+      setRanking(currentRanking);
+      setCity(cityDB);
+    },
+    [country, state],
+  );
+
 
   useEffect(() => {
     let position = null;
@@ -73,33 +104,17 @@ const CreateRanking = ({ auth, history, profile }) => {
           latitude,
           longitude,
         });
+      } else {
+        createCity();
       }
 
       if (cityDB) {
-        setState(state);
-        setCountry(country);
-        setLoading(false);
-        setRanking(currentRanking);
-        setCity(cityDB);
-      }
-
-      const createCity = await createCityAsync({
-        cityName,
-        state,
-        country,
-        coords,
-      });
-
-      if (createCity) {
-        setState(createCity.state);
-        setCountry(createCity.country);
-        setLoading(false);
-        setCity(createCity);
+        existingCity(cityDB, currentRanking);
       }
     }
 
     fetchCityData();
-  }, []);
+  }, [auth.uid, main, createCity, existingCity]);
 
   const onClickHandler = (rating) => {
     setStarRating(rating);

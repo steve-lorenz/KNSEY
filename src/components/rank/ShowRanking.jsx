@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
@@ -15,21 +15,24 @@ const ShowRanking = ({ match, setCityAction }) => {
   const [ranking, setRanking] = useState('');
   const [loading, setLoding] = useState(true);
 
-  async function findCity(cityId) {
-    const cityResults = await getCityById(cityId);
-    if (cityResults) {
-      const rankResults = await getRankingById(cityId);
-      setCityState(cityResults);
-      setRanking(rankResults);
-      setLoding(false);
-      setCityAction(cityResults);
-    }
-  }
+  const findCity = useCallback(
+    async (cityId) => {
+      const cityResults = await getCityById(cityId);
+      if (cityResults) {
+        const rankResults = await getRankingById(cityId);
+        setCityState(cityResults);
+        setRanking(rankResults);
+        setLoding(false);
+        setCityAction(cityResults);
+      }
+    },
+    [setCityAction],
+  );
 
   useEffect(() => {
     const cityURL = match.params;
     findCity(cityURL.id);
-  }, [match.params]);
+  }, [match.params, findCity]);
 
   return (
     <div className="container">
