@@ -156,7 +156,7 @@ const CreateRanking = ({ auth, history, profile }) => {
             cityName={city.cityName}
             ranking={ranking}
             isReadOnly
-            title={'You\'ve alreay ranked'}
+            title={'You\'ve already ranked'}
             handleSubmit={handleSubmit}
             clickHandler={onClickHandler}
           />
