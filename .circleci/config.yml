@@ -16,31 +16,32 @@ jobs:
             - node_modules
           key: 'v1-dependencies-{{ checksum "package.json" }}'
       - run:
-          name: 'Build Project'
-          command: 'npm run build'
-      - run:
           name: 'Test Project'
           command: 'npm run test:ci'
+      - run:
+          name: 'Build Project'
+          command: 'npm run build'
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
+  deploy-job:
+    docker:
+      - image: 'node:10'
+    working_directory: ~/repo
+    steps:
+      - checkout
       - run:
-          name: 'Deploy to Firebase Hosting'
-          command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
-#   test:
-#     docker:
-#       - image: 'circleci/node:10'
-#     steps:
-#       - checkout
-#       - run:
-#           name: 'Test Project'
-#           command: 'npm run test'
-# workflows:
-#   version: 2
-#   build_and_test:
-#     jobs:
-#       - build
-#       - test:
-#           requires:
-#             - build
+        name: 'Deploy to Firebase Hosting'
+        command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - deploy-job:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
