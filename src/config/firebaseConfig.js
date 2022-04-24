@@ -2,6 +2,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
+import { attachCustomCommands } from 'cypress-firebase';
+
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API,
   authDomain: 'knsey-bce8e.firebaseapp.com',
@@ -13,5 +15,6 @@ const config = {
 
 firebase.initializeApp(config);
 // firebase.firestore().settings({ timestampsInSnapshots: true })
+attachCustomCommands({ Cypress, cy, firebase });
 
 export default firebase;
