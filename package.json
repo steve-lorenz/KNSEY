@@ -33,7 +33,7 @@
     "eject": "react-scripts eject",
     "cy:run": "cypress run",
     "test": "cypress run",
-    "test:ci": "start-server-and-test start http://localhost:3000 CYPRESS_TEST_UID=your-uid cy:run",
+    "test:ci": "CYPRESS_TEST_UID=evuT97oZfehfdOSExuUEw0LoLuA2 start-server-and-test start http://localhost:3000 cy:run",
     "test:open": "cypress open"
   },
   "eslintConfig": {
