@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: 'cypress/base:10'
+      - image: 'cypress/base:latest'
     working_directory: ~/repo
     steps:
       - checkout
@@ -10,28 +10,31 @@ jobs:
           keys:
             - 'v1-dependencies-{{ checksum "package.json" }}'
             - v1-dependencies-
-      - run: 'npm ci'
+      - run: 'yarn install --frozen-lockfile'
       - save_cache:
           paths:
             - node_modules
           key: 'v1-dependencies-{{ checksum "package.json" }}'
       - run:
           name: 'Test Project'
-          command: 'npm run test:ci'
+          command: 'yarn run test:ci'
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
   deploy-job:
+    add_ssh_keys:
+      fingerprints:
+        - "SO:ME:FIN:G:ER:PR:IN:T"
     docker:
-      - image: 'cypress/base:10'
+      - image: 'cypress/base:latest'
     working_directory: ~/repo
     steps:
       - checkout
-      - run: 'npm ci'
+      - run: 'yarn install --frozen-lockfile'
       - run:
           name: 'Build Project'
-          command: 'npm run build'
+          command: 'yarn run build'
       - run:
           name: 'Deploy to Firebase Hosting'
           command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'

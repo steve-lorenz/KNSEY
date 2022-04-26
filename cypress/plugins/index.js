@@ -11,20 +11,13 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const cypressFirebasePlugin = require('cypress-firebase').plugin
+const admin = require('firebase-admin');
+const cypressFirebasePlugin = require('cypress-firebase').plugin;
 
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-  // on('before:browser:launch', (browser = {}, args) => {
-  //   if (browser.name === 'chrome') { 
-  //     // ^ make sure this is your browser name, you may 
-  //     // be using 'canary' or 'chromium' for example, so change it to match!
-  //     args.push('--proxy-bypass-list=<-loopback>')
-  //     return args
-  //   }
-  // })
-  
-  // Return extended config (with settings from .firebaserc)
-  return cypressFirebasePlugin(config)
-}
+  const extendedConfig = cypressFirebasePlugin(on, config, admin);
+
+  // Add other plugins/tasks such as code coverage here
+
+  return extendedConfig;
+};
